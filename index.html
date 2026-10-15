@@ -8,27 +8,27 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="LOGin">
 
+  <!-- Font Retro Pixel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- PWA Manifest Dynamic Generation Script -->
+  <!-- PWA Manifest -->
   <script>
     const manifestObj = {
       "name": "LOGin",
       "short_name": "LOGin",
       "start_url": ".",
       "display": "standalone",
-      "background_color": "#f0f8ff",
-      "theme_color": "#3b82f6",
+      "background_color": "#e9d5ff",
+      "theme_color": "#c084fc",
       "icons": [
         {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233b82f6'/><path d='M30 50 L45 65 L70 35' stroke='white' stroke-width='10' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e9d5ff'/><text x='50' y='65' font-size='45' text-anchor='middle'>💻</text></svg>",
           "sizes": "192x192",
-          "type": "image/svg+xml"
-        },
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233b82f6'/><path d='M30 50 L45 65 L70 35' stroke='white' stroke-width='10' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>",
-          "sizes": "512x512",
           "type": "image/svg+xml"
         }
       ]
@@ -43,56 +43,49 @@
 
   <style>
     :root {
-      /* Theme Variables - Default Blue Pastello */
-      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-      --card-bg: rgba(255, 255, 255, 0.85);
-      --card-border: rgba(186, 230, 253, 0.6);
-      --primary: #3b82f6;
-      --primary-light: #93c5fd;
-      --primary-dark: #1d4ed8;
-      --accent: #60a5fa;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --success: #10b981;
-      --success-light: #d1fae5;
-      --danger: #f43f5e;
-      --danger-light: #ffe4e6;
-      --shadow: 0 10px 25px -5px rgba(186, 230, 253, 0.5), 0 8px 10px -6px rgba(186, 230, 253, 0.3);
-      --nav-bg: rgba(255, 255, 255, 0.9);
-    }
-
-    /* Rosa Pastello Theme */
-    body.theme-rosa {
-      --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #fff1f2 100%);
-      --card-bg: rgba(255, 255, 255, 0.85);
-      --card-border: rgba(251, 207, 232, 0.6);
-      --primary: #ec4899;
-      --primary-light: #fbcfe8;
-      --primary-dark: #be185d;
-      --accent: #f472b6;
-      --text-main: #4c0519;
-      --text-muted: #881337;
-      --shadow: 0 10px 25px -5px rgba(251, 207, 232, 0.5), 0 8px 10px -6px rgba(251, 207, 232, 0.3);
-      --nav-bg: rgba(255, 255, 255, 0.9);
+      /* Palette Pixel OS (Lilla & Rosa Pastello) */
+      --os-bg: linear-gradient(180deg, #d8b4fe 0%, #f3e8ff 50%, #fce7f3 100%);
+      --win-bg: #fcf6ff;
+      --win-border: #a855f7;
+      --win-border-light: #d8b4fe;
+      --titlebar-bg: linear-gradient(90deg, #c084fc, #f472b6);
+      --text-dark: #3b0764;
+      --accent-pink: #f472b6;
+      --accent-purple: #a855f7;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background: var(--bg-gradient);
-      color: var(--text-main);
+      background: var(--os-bg);
+      background-attachment: fixed;
+      color: var(--text-dark);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       padding-bottom: 80px;
-      overflow-x: hidden;
-      transition: background 0.4s ease;
+      font-family: 'Quicksand', sans-serif;
+      position: relative;
+    }
+
+    /* Sfondo Sfumato con Dettagli e Stelline Pixel */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        radial-gradient(circle, #ffffff 15%, transparent 20%),
+        radial-gradient(circle, #f472b6 10%, transparent 15%);
+      background-size: 50px 50px, 80px 80px;
+      background-position: 0 0, 25px 25px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .status-bar-spacer {
@@ -100,326 +93,294 @@
       background: transparent;
     }
 
-    /* Header */
+    /* Header OS Style */
     header {
-      padding: 16px 20px;
+      padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.5);
-      border-bottom: 1px solid var(--card-border);
+      background: rgba(243, 232, 255, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--win-border);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.05);
     }
 
     .app-title {
-      font-size: 24px;
-      font-weight: 800;
+      font-family: 'VT323', monospace;
+      font-size: 32px;
       display: flex;
       align-items: center;
       gap: 8px;
-      letter-spacing: -0.5px;
-      color: var(--text-main);
+      color: var(--text-dark);
     }
 
-    .app-title span.brand-log { font-weight: 900; }
-    .app-title span.brand-in { font-weight: 400; opacity: 0.85; }
-
-    .theme-selector {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 4px;
-      border-radius: 20px;
-      border: 1px solid var(--card-border);
-    }
-
-    .theme-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .theme-btn.active {
-      transform: scale(1.15);
-      border-color: var(--text-main);
-    }
-
-    .theme-btn.btn-blue { background: #3b82f6; }
-    .theme-btn.btn-pink { background: #ec4899; }
-
-    /* Container */
     .container {
+      position: relative;
+      z-index: 1;
       padding: 16px;
-      max-width: 600px;
+      max-width: 500px;
       margin: 0 auto;
       width: 100%;
     }
 
-    /* Navigation Tabs */
-    .nav-tabs {
-      display: flex;
-      background: var(--nav-bg);
-      backdrop-filter: blur(10px);
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      border-top: 1px solid var(--card-border);
-      padding-bottom: env(safe-area-inset-bottom, 10px);
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 12px 4px 8px 4px;
-      border: none;
-      background: none;
-      color: var(--text-muted);
-      font-size: 11px;
-      font-weight: 600;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .tab-btn.active { color: var(--primary); }
-    .tab-btn i { width: 22px; height: 22px; }
-
-    /* Sections */
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.25s ease-out;
-    }
-
-    .tab-content.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Card Styling */
-    .card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 18px;
+    /* Card Retro Window */
+    .retro-window {
+      background: var(--win-bg);
+      border: 2px solid var(--win-border);
+      overflow: hidden;
       margin-bottom: 16px;
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
+      box-shadow: 4px 4px 0px rgba(168, 85, 247, 0.25);
+    }
+
+    .window-titlebar {
+      background: var(--titlebar-bg);
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-family: 'VT323', monospace;
+      font-size: 22px;
+      border-bottom: 2px solid var(--win-border);
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 4px;
+    }
+
+    .win-btn {
+      width: 16px;
+      height: 16px;
+      border: 1px solid white;
+      background: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .window-body {
+      padding: 16px;
     }
 
     .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 6px;
+      font-family: 'VT323', monospace;
+      font-size: 26px;
+      color: var(--text-dark);
+      margin-bottom: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .section-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
+      font-size: 12px;
+      color: var(--accent-purple);
+      margin-bottom: 12px;
+      font-weight: 700;
     }
 
-    .progress-banner {
+    /* Barra del Progresso Pixel */
+    .pixel-progress-bg {
+      height: 18px;
+      background: white;
+      border: 2px solid var(--win-border);
+      padding: 2px;
+      margin-bottom: 8px;
+    }
+
+    .pixel-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #c084fc, #f472b6);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Input & Bottone Pixel */
+    .add-form {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 12px;
     }
 
-    .progress-bar-bg {
-      height: 12px;
-      background: rgba(0, 0, 0, 0.06);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--primary);
-      width: 0%;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 10px;
-    }
-
-    /* Forms */
-    .add-form {
+    .form-row {
       display: flex;
       gap: 8px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
     }
 
-    .input-field {
+    .retro-input {
       flex: 1;
-      min-width: 180px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 15px;
-      outline: none;
-      color: var(--text-main);
-    }
-
-    .time-input {
-      width: 100px;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 12px;
+      border: 2px solid var(--win-border);
+      background: white;
+      font-family: 'Quicksand', sans-serif;
       font-size: 14px;
+      font-weight: 700;
       outline: none;
+      color: var(--text-dark);
     }
 
-    .btn-add {
-      background: var(--primary);
+    .retro-btn {
+      background: var(--accent-purple);
       color: white;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 14px;
-      font-weight: 600;
-      font-size: 15px;
+      border: 2px solid var(--win-border);
+      padding: 8px 16px;
+      font-family: 'VT323', monospace;
+      font-size: 20px;
       cursor: pointer;
+      box-shadow: 2px 2px 0px var(--win-border);
       display: flex;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      gap: 4px;
     }
 
-    .btn-add:active { transform: scale(0.97); }
+    .retro-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
 
-    /* Lists */
+    /* Liste Elementi */
     .item-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .item-card {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 16px;
-      padding: 14px 16px;
+      background: white;
+      border: 2px solid var(--win-border);
+      padding: 10px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      border: 1px solid rgba(0,0,0,0.03);
+      gap: 10px;
     }
 
     .item-card.completed {
-      opacity: 0.65;
-      background: rgba(255, 255, 255, 0.6);
+      background: #f3e8ff;
+      opacity: 0.75;
     }
 
     .item-card.completed .item-text {
       text-decoration: line-through;
-      color: var(--text-muted);
+      color: #a855f7;
     }
 
-    .item-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .custom-checkbox {
-      width: 24px;
-      height: 24px;
-      border-radius: 8px;
-      border: 2px solid var(--primary-light);
+    .retro-checkbox {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--win-border);
+      background: white;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      flex-shrink: 0;
-      background: white;
+      font-size: 12px;
+      color: var(--accent-purple);
     }
 
-    .item-card.completed .custom-checkbox {
-      background: var(--primary);
-      border-color: var(--primary);
+    .item-card.completed .retro-checkbox {
+      background: var(--accent-pink);
+      border-color: var(--accent-pink);
       color: white;
     }
 
-    .item-info {
+    .item-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* Category Filter Pills */
+    .category-filter-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+
+    .chip-filter {
+      padding: 4px 12px;
+      background: white;
+      border: 2px solid var(--win-border);
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      color: var(--text-dark);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .chip-filter.active {
+      background: var(--accent-pink);
+      color: white;
+      border-color: var(--accent-pink);
+    }
+
+    .category-box {
+      background: rgba(255, 255, 255, 0.75);
+      border: 2px dashed var(--win-border);
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .category-box-title {
+      font-family: 'VT323', monospace;
+      font-size: 22px;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Navigation Tabs Originali */
+    .nav-tabs {
+      display: flex;
+      background: rgba(243, 232, 255, 0.95);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      border-top: 2px solid var(--win-border);
+      padding-bottom: env(safe-area-inset-bottom, 10px);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 4px 6px 4px;
+      border: none;
+      background: none;
+      color: #c084fc;
+      font-family: 'VT323', monospace;
+      font-size: 20px;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 2px;
-      overflow: hidden;
-    }
-
-    .item-text {
-      font-size: 15px;
-      font-weight: 500;
-      word-break: break-word;
-    }
-
-    .item-badge {
-      font-size: 11px;
-      color: var(--primary-dark);
-      background: var(--primary-light);
-      padding: 2px 8px;
-      border-radius: 10px;
-      width: fit-content;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .item-actions {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-icon {
-      background: none;
-      border: none;
-      color: var(--text-muted);
       cursor: pointer;
-      padding: 6px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .btn-icon.btn-delete:hover {
-      color: var(--danger);
-      background: var(--danger-light);
+    .tab-btn.active {
+      color: #7e22ce;
+      font-weight: bold;
     }
 
-    .btn-timer {
-      background: var(--primary-light);
-      color: var(--primary-dark);
-      border: none;
-      padding: 6px 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
     }
 
     /* Modal Timer */
@@ -427,7 +388,7 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(4px);
       z-index: 200;
       display: flex;
       align-items: center;
@@ -435,7 +396,7 @@
       padding: 20px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s;
+      transition: opacity 0.2s;
     }
 
     .modal-overlay.active {
@@ -444,169 +405,20 @@
     }
 
     .modal-card {
-      background: white;
-      width: 100%;
-      max-width: 360px;
-      border-radius: 24px;
-      padding: 24px;
+      background: #fcf6ff;
+      border: 2px solid var(--win-border);
+      padding: 20px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 6px 6px 0px rgba(168, 85, 247, 0.3);
     }
 
     .timer-display {
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--primary);
-      margin: 20px 0;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .timer-controls {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .btn-modal {
-      padding: 12px 24px;
-      border-radius: 14px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-primary-modal { background: var(--primary); color: white; }
-    .btn-secondary-modal { background: #f1f5f9; color: var(--text-main); }
-
-    /* History Screen */
-    .history-summary {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .stat-card {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 12px;
-      border-radius: 16px;
-      text-align: center;
-      border: 1px solid var(--card-border);
-    }
-
-    .stat-num {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--primary-dark);
-    }
-
-    .stat-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .history-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .history-item {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid rgba(0,0,0,0.03);
-      cursor: pointer;
-    }
-
-    .history-date { font-weight: 600; font-size: 14px; }
-    .history-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-
-    .status-badge {
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .status-badge.full { background: #d1fae5; color: #047857; }
-    .status-badge.partial { background: #fef3c7; color: #b45309; }
-    .status-badge.none { background: #ffe4e6; color: #be123c; }
-
-    .detail-list {
-      text-align: left;
-      margin: 16px 0;
-      max-height: 250px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .detail-item {
-      padding: 8px 12px;
-      border-radius: 10px;
-      background: #f8fafc;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .detail-item.done { color: var(--success); text-decoration: line-through; }
-
-    .pwa-prompt {
-      background: var(--text-main);
-      color: white;
-      padding: 12px 16px;
-      border-radius: 16px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-    }
-
-    .pwa-prompt button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 24px 10px;
-      color: var(--text-muted);
-    }
-
-    .empty-state i {
-      width: 36px;
-      height: 36px;
-      margin-bottom: 8px;
-      opacity: 0.5;
-    }
-
-    .reset-time-tag {
-      font-size: 11px;
-      background: rgba(0, 0, 0, 0.05);
-      padding: 3px 8px;
-      border-radius: 8px;
-      color: var(--text-muted);
-      font-weight: 500;
+      font-family: 'VT323', monospace;
+      font-size: 56px;
+      color: var(--text-dark);
+      margin: 12px 0;
     }
   </style>
 </head>
@@ -617,222 +429,166 @@
   <!-- Header -->
   <header>
     <div class="app-title">
-      <i data-lucide="check-circle-2" style="color: var(--primary);"></i>
-      <span class="brand-log">LOG</span><span class="brand-in">in</span>
+      <i data-lucide="check-square" style="color: var(--accent-purple);"></i>
+      <span>LOGin.exe</span>
     </div>
-    
-    <div class="theme-selector">
-      <button class="theme-btn btn-blue active" id="themeBlueBtn" title="Azzurro Pastello"></button>
-      <button class="theme-btn btn-pink" id="themePinkBtn" title="Rosa Pastello"></button>
-    </div>
+    <div style="font-family:'VT323'; font-size: 20px; color: var(--accent-pink);">🌸 PIXEL EDITION</div>
   </header>
 
   <div class="container">
 
-    <div id="pwaPrompt" class="pwa-prompt" style="display: none;">
-      <span>Installa **LOGin** sul tuo telefono!</span>
-      <button id="installPwaBtn">Installa</button>
-    </div>
-
-    <!-- TAB 1: SINGLE SCREEN - HOME (OBIETTIVI & TO-DO) -->
+    <!-- TAB 1: HOME (OBIETTIVI & TO-DO) -->
     <section id="tab-home" class="tab-content active">
       
       <!-- SEZIONE 1: OBIETTIVI GIORNALIERI -->
-      <div class="card">
-        <div class="section-title">
-          <span>Obiettivi Giornalieri</span>
-          <span class="reset-time-tag"><i data-lucide="rotate-ccw" style="width:12px; height:12px; display:inline;"></i> Reset 00:00</span>
-        </div>
-        <div class="section-subtitle">Si azzerano ogni notte e vengono salvati nello storico.</div>
-        
-        <div class="progress-banner" style="margin-bottom: 16px;">
-          <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
-            <span>Progresso Oggi</span>
-            <span id="habitProgressText">0%</span>
-          </div>
-          <div class="progress-bar-bg">
-            <div id="habitProgressBar" class="progress-bar-fill"></div>
+      <div class="retro-window">
+        <div class="window-titlebar">
+          <span>🌸 Stream.exe (Obiettivi)</span>
+          <div class="window-controls">
+            <div class="win-btn">_</div>
+            <div class="win-btn">□</div>
+            <div class="win-btn">✕</div>
           </div>
         </div>
+        <div class="window-body">
+          <div class="section-title">
+            <span>Obiettivi Giornalieri</span>
+            <span style="font-size: 14px; background: white; padding: 2px 8px; border: 1px solid var(--win-border);">Reset 00:00</span>
+          </div>
+          <div class="section-subtitle">Abitudini quotidiane che si azzerano a mezzanotte.</div>
 
-        <form id="addHabitForm" class="add-form">
-          <input type="text" id="habitInput" class="input-field" placeholder="Es. 30 min Attività, Bere acqua..." required>
-          <input type="number" id="habitTimeInput" class="time-input" placeholder="Minuti (opz)" min="1" max="300">
-          <button type="submit" class="btn-add">
-            <i data-lucide="plus"></i>
-          </button>
-        </form>
+          <div class="pixel-progress-bg">
+            <div id="habitProgressBar" class="pixel-progress-fill"></div>
+          </div>
+          <div style="text-align: right; font-family: 'VT323'; font-size: 18px; margin-bottom: 8px;" id="habitProgressText">0%</div>
 
-        <ul id="habitList" class="item-list">
-          <!-- Dinamico -->
-        </ul>
+          <form id="addHabitForm" class="add-form" style="flex-direction: row;">
+            <input type="text" id="habitInput" class="retro-input" placeholder="Es. 30 min corsa..." required>
+            <input type="number" id="habitTimeInput" class="retro-input" placeholder="Min" style="max-width: 70px;" min="1">
+            <button type="submit" class="retro-btn">+</button>
+          </form>
+
+          <ul id="habitList" class="item-list"></ul>
+        </div>
       </div>
 
-      <!-- SEZIONE 2: TO-DO LIST -->
-      <div class="card">
-        <div class="section-title">Cose da Fare (To-Do)</div>
-        <div class="section-subtitle">Compiti e promemoria occasionali.</div>
+      <!-- SEZIONE 2: TO-DO LIST CON CATEGORIE -->
+      <div class="retro-window">
+        <div class="window-titlebar" style="background: var(--accent-pink);">
+          <span>💌 JINE.exe (To-Do & Categorie)</span>
+          <div class="window-controls">
+            <div class="win-btn">_</div>
+            <div class="win-btn">□</div>
+            <div class="win-btn">✕</div>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="section-title">Cose da Fare (To-Do)</div>
+          <div class="section-subtitle">Organizzati in sezioni e categorie.</div>
 
-        <form id="addTodoForm" class="add-form">
-          <input type="text" id="todoInput" class="input-field" placeholder="Es. Comprare latte, Chiamare Marco..." required>
-          <button type="submit" class="btn-add">
-            <i data-lucide="plus"></i>
-          </button>
-        </form>
+          <div class="category-filter-bar" id="categoryFilterBar"></div>
 
-        <ul id="todoList" class="item-list">
-          <!-- Dinamico -->
-        </ul>
+          <form id="addTodoForm" class="add-form">
+            <input type="text" id="todoInput" class="retro-input" placeholder="Es. Comprare latte..." required>
+            <div class="form-row">
+              <input type="text" id="todoCatInput" class="retro-input" placeholder="Categoria (es. Studio, Casa)..." required>
+              <button type="submit" class="retro-btn">Aggiungi</button>
+            </div>
+          </form>
+
+          <div id="todoCategoriesContainer"></div>
+        </div>
       </div>
 
     </section>
 
-    <!-- TAB 2: STORICO (HISTORY & TRACKING) -->
+    <!-- TAB 2: STORICO -->
     <section id="tab-history" class="tab-content">
-      <div class="card">
-        <div class="section-title">Storico & Registro</div>
-        <div class="section-subtitle">Verifica le tue prestazioni nei giorni passati.</div>
-
-        <div class="history-summary">
-          <div class="stat-card">
-            <div id="statStreak" class="stat-num">0</div>
-            <div class="stat-label">Giorni Consecutivi 100%</div>
-          </div>
-          <div class="stat-card">
-            <div id="statCompletedDays" class="stat-num">0</div>
-            <div class="stat-label">Giorni Completi</div>
-          </div>
+      <div class="retro-window">
+        <div class="window-titlebar">
+          <span>📊 Followers.exe (Storico)</span>
+          <div class="window-controls"><div class="win-btn">✕</div></div>
         </div>
-
-        <div class="history-list" id="historyList">
-          <!-- Dinamico -->
+        <div class="window-body">
+          <div class="section-title">Registro Storico</div>
+          <div class="section-subtitle">Controlla i tuoi progressi dei giorni passati.</div>
+          <div id="historyList" class="item-list"></div>
         </div>
       </div>
     </section>
 
     <!-- TAB 3: INFO -->
     <section id="tab-info" class="tab-content">
-      <div class="card">
-        <div class="section-title">Come funziona LOGin</div>
-        <div style="font-size: 14px; line-height: 1.6; color: var(--text-main); display: flex; flex-direction: column; gap: 12px;">
-          <p>🌟 **Schermata Unica**: Gestisci sia i tuoi obiettivi giornalieri ricorrenti sia la tua lista di To-Do al volo in un'unica pagina.</p>
-          <p>🔄 **Reset Automatico**: Ogni giorno a mezzanotte i tuoi obiettivi giornalieri si azzerano e i risultati della giornata vengono memorizzati nella scheda **Storico**.</p>
-          <p>⏱️ **Timer Integrato**: Specifica i minuti per un obiettivo e clicca sul pulsante **Timer** per far partire il conto alla rovescia.</p>
-          <p>📲 **Come Installarla**:
-            <br>• **iPhone**: Apri in Safari, tocca **Condividi** e scegli **"Aggiungi alla schermata Home"**.
-            <br>• **Android**: Apri in Chrome, tocca i tre pallini e scegli **"Installa app"**.
-          </p>
+      <div class="retro-window">
+        <div class="window-titlebar">
+          <span>💻 Webcam.exe (Info)</span>
+          <div class="window-controls"><div class="win-btn">✕</div></div>
+        </div>
+        <div class="window-body">
+          <div class="section-title">Info LOGin</div>
+          <div style="font-size: 14px; line-height: 1.6; font-weight: 600; margin-top: 8px;">
+            <p>💖 **LOGin PWA**: App in grafica pixel-art lilla/rosa per monitorare abitudini quotidiane e To-Do.</p>
+            <br>
+            <p>📲 **Installazione**: Apri nel browser del tuo smartphone (Safari su iOS o Chrome su Android) e seleziona **"Aggiungi alla schermata Home"**.</p>
+          </div>
         </div>
       </div>
     </section>
 
   </div>
 
-  <!-- Bottom Navigation -->
+  <!-- Bottom Navigation Bar (Struttura Originale) -->
   <nav class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('home', this)">
-      <i data-lucide="layout-dashboard"></i>
-      Home
+      <i data-lucide="layout-dashboard"></i> HOME
     </button>
     <button class="tab-btn" onclick="switchTab('history', this)">
-      <i data-lucide="calendar"></i>
-      Storico
+      <i data-lucide="calendar"></i> STORICO
     </button>
     <button class="tab-btn" onclick="switchTab('info', this)">
-      <i data-lucide="info"></i>
-      Info
+      <i data-lucide="info"></i> INFO
     </button>
   </nav>
 
   <!-- Timer Modal -->
   <div id="timerModal" class="modal-overlay">
     <div class="modal-card">
-      <h3 id="timerTitle" style="font-size: 18px; margin-bottom: 4px;">Timer Attività</h3>
+      <div style="font-family:'VT323'; font-size:28px;" id="timerTitle">Timer Attività</div>
       <div class="timer-display" id="timerDisplay">00:00</div>
-      <div class="timer-controls">
-        <button id="btnStartTimer" class="btn-modal btn-primary-modal">
-          <i data-lucide="play"></i> Avvia
-        </button>
-        <button id="btnCloseTimer" class="btn-modal btn-secondary-modal">
-          Chiudi
-        </button>
+      <div style="display:flex; justify-content:center; gap:10px;">
+        <button id="btnStartTimer" class="retro-btn">Avvia</button>
+        <button id="btnCloseTimer" class="retro-btn" style="background:#f472b6;">Chiudi</button>
       </div>
     </div>
   </div>
 
-  <!-- History Detail Modal -->
-  <div id="historyModal" class="modal-overlay">
-    <div class="modal-card">
-      <h3 id="historyModalTitle" style="font-size: 18px; margin-bottom: 4px;">Dettaglio Giornata</h3>
-      <div class="section-subtitle" id="historyModalSubtitle">Resoconto degli obiettivi</div>
-      
-      <div class="detail-list" id="historyDetailList">
-        <!-- Dinamico -->
-      </div>
-
-      <button id="btnCloseHistoryModal" class="btn-modal btn-secondary-modal" style="width: 100%; justify-content: center; margin-top: 12px;">
-        Chiudi
-      </button>
-    </div>
-  </div>
-
-  <!-- JavaScript Logic -->
   <script>
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
-      const swCode = `
-        self.addEventListener('install', (e) => self.skipWaiting());
-        self.addEventListener('activate', (e) => self.clients.claim());
-        self.addEventListener('fetch', (e) => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
-      `;
-      const swBlob = new Blob([swCode], { type: 'text/javascript' });
-      navigator.serviceWorker.register(URL.createObjectURL(swBlob))
-        .catch(err => console.log('SW error:', err));
-    }
+    lucide.createIcons();
 
-    // State Management
     let habits = JSON.parse(localStorage.getItem('login_habits')) || [];
     let todos = JSON.parse(localStorage.getItem('login_todos')) || [];
     let dailyHistory = JSON.parse(localStorage.getItem('login_history')) || {};
     let lastDate = localStorage.getItem('login_last_date') || getTodayStr();
-    let currentTheme = localStorage.getItem('login_theme') || 'blue';
+    let selectedFilterCategory = 'ALL';
 
-    // Timer State
     let activeTimerInterval = null;
     let timerTimeLeft = 0;
     let activeHabitForTimer = null;
 
     document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
-      applyTheme(currentTheme);
       checkDailyReset();
       renderHabits();
       renderTodos();
 
-      // Listeners
       document.getElementById('addHabitForm').addEventListener('submit', handleAddHabit);
       document.getElementById('addTodoForm').addEventListener('submit', handleAddTodo);
-
-      document.getElementById('themeBlueBtn').addEventListener('click', () => applyTheme('blue'));
-      document.getElementById('themePinkBtn').addEventListener('click', () => applyTheme('pink'));
-
       document.getElementById('btnStartTimer').addEventListener('click', toggleTimer);
       document.getElementById('btnCloseTimer').addEventListener('click', closeTimerModal);
-
-      document.getElementById('btnCloseHistoryModal').addEventListener('click', () => {
-        document.getElementById('historyModal').classList.remove('active');
-      });
     });
 
     function getTodayStr() {
       const d = new Date();
       return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    }
-
-    function formatDateFormatted(dateStr) {
-      const [year, month, day] = dateStr.split('-');
-      const d = new Date(year, month - 1, day);
-      return d.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
     }
 
     function checkDailyReset() {
@@ -856,37 +612,14 @@
       }
     }
 
-    function applyTheme(theme) {
-      currentTheme = theme;
-      localStorage.setItem('login_theme', theme);
-
-      const body = document.body;
-      const blueBtn = document.getElementById('themeBlueBtn');
-      const pinkBtn = document.getElementById('themePinkBtn');
-
-      if (theme === 'pink') {
-        body.classList.add('theme-rosa');
-        blueBtn.classList.remove('active');
-        pinkBtn.classList.add('active');
-      } else {
-        body.classList.remove('theme-rosa');
-        blueBtn.classList.add('active');
-        pinkBtn.classList.remove('active');
-      }
-    }
-
     function switchTab(tabName, btnElement) {
-      checkDailyReset();
-
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
       document.getElementById(`tab-${tabName}`).classList.add('active');
-      btnElement.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
 
-      if (tabName === 'history') {
-        renderHistory();
-      }
+      if (tabName === 'history') renderHistory();
     }
 
     function saveHabits() {
@@ -904,12 +637,10 @@
       e.preventDefault();
       const input = document.getElementById('habitInput');
       const timeInput = document.getElementById('habitTimeInput');
-
       const title = input.value.trim();
       const duration = parseInt(timeInput.value) || 0;
 
       if (!title) return;
-
       habits.push({ id: Date.now(), title, duration, completed: false });
       input.value = '';
       timeInput.value = '';
@@ -931,12 +662,7 @@
       listEl.innerHTML = '';
 
       if (habits.length === 0) {
-        listEl.innerHTML = `
-          <div class="empty-state">
-            <i data-lucide="target"></i>
-            <div>Nessun obiettivo per oggi.</div>
-          </div>`;
-        lucide.createIcons();
+        listEl.innerHTML = `<div style="text-align:center; color:#a855f7; font-size:14px; font-weight:bold;">Nessun obiettivo impostato.</div>`;
         updateHabitProgress(0, 0);
         return;
       }
@@ -945,56 +671,45 @@
 
       habits.forEach(habit => {
         if (habit.completed) completedCount++;
-
         const li = document.createElement('li');
         li.className = `item-card ${habit.completed ? 'completed' : ''}`;
-
         li.innerHTML = `
-          <div class="item-left" onclick="toggleHabit(${habit.id})">
-            <div class="custom-checkbox">
-              ${habit.completed ? '<i data-lucide="check" style="width:16px; height:16px;"></i>' : ''}
-            </div>
-            <div class="item-info">
-              <span class="item-text">${escapeHtml(habit.title)}</span>
-              ${habit.duration > 0 ? `<span class="item-badge"><i data-lucide="clock" style="width:12px; height:12px;"></i> ${habit.duration} min</span>` : ''}
+          <div style="display:flex; align-items:center; gap:8px; flex:1;" onclick="toggleHabit(${habit.id})">
+            <div class="retro-checkbox">${habit.completed ? '✔' : ''}</div>
+            <div>
+              <div class="item-text">${escapeHtml(habit.title)}</div>
+              ${habit.duration > 0 ? `<span style="font-size:12px; color:#a855f7;">⏱ ${habit.duration}m</span>` : ''}
             </div>
           </div>
-          <div class="item-actions">
-            ${habit.duration > 0 && !habit.completed ? `
-              <button class="btn-timer" onclick="openTimerModal(${habit.id})">
-                <i data-lucide="play" style="width:14px; height:14px;"></i> Timer
-              </button>
-            ` : ''}
-            <button class="btn-icon btn-delete" onclick="deleteHabit(${habit.id})">
-              <i data-lucide="trash-2" style="width:18px; height:18px;"></i>
-            </button>
+          <div style="display:flex; gap:4px;">
+            ${habit.duration > 0 && !habit.completed ? `<button class="retro-btn" style="font-size:16px; padding:2px 6px;" onclick="openTimerModal(${habit.id})">Timer</button>` : ''}
+            <button class="retro-btn" style="font-size:16px; padding:2px 6px; background:#f472b6;" onclick="deleteHabit(${habit.id})">✕</button>
           </div>
         `;
         listEl.appendChild(li);
       });
 
-      lucide.createIcons();
       updateHabitProgress(completedCount, habits.length);
     }
 
     function updateHabitProgress(completed, total) {
       const progressBar = document.getElementById('habitProgressBar');
       const progressText = document.getElementById('habitProgressText');
-
       const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
       progressBar.style.width = `${percent}%`;
-      progressText.innerText = `${percent}% (${completed}/${total})`;
+      progressText.innerText = `${percent}% (${completed}/${total} fatti)`;
     }
 
-    // TO-DOS
+    // TO-DO CATEGORIES
     function handleAddTodo(e) {
       e.preventDefault();
       const input = document.getElementById('todoInput');
+      const catInput = document.getElementById('todoCatInput');
       const title = input.value.trim();
+      const category = catInput.value.trim() || 'Generale';
 
       if (!title) return;
-
-      todos.push({ id: Date.now(), title, completed: false });
+      todos.push({ id: Date.now(), title, category, completed: false });
       input.value = '';
       saveTodos();
     }
@@ -1010,42 +725,75 @@
     }
 
     function renderTodos() {
-      const listEl = document.getElementById('todoList');
-      listEl.innerHTML = '';
+      const container = document.getElementById('todoCategoriesContainer');
+      container.innerHTML = '';
+
+      const categories = [...new Set(todos.map(t => t.category))];
+      renderCategoryFilterBar(categories);
 
       if (todos.length === 0) {
-        listEl.innerHTML = `
-          <div class="empty-state">
-            <i data-lucide="check-square"></i>
-            <div>Nessuna cosa da fare!</div>
-          </div>`;
-        lucide.createIcons();
+        container.innerHTML = `<div style="text-align:center; color:#a855f7; font-size:14px; font-weight:bold; padding:8px;">Nessuna cosa da fare!</div>`;
         return;
       }
 
-      todos.forEach(todo => {
-        const li = document.createElement('li');
-        li.className = `item-card ${todo.completed ? 'completed' : ''}`;
+      const categoriesToDisplay = selectedFilterCategory === 'ALL' ? categories : [selectedFilterCategory];
 
-        li.innerHTML = `
-          <div class="item-left" onclick="toggleTodo(${todo.id})">
-            <div class="custom-checkbox">
-              ${todo.completed ? '<i data-lucide="check" style="width:16px; height:16px;"></i>' : ''}
-            </div>
-            <div class="item-info">
-              <span class="item-text">${escapeHtml(todo.title)}</span>
-            </div>
+      categoriesToDisplay.forEach(cat => {
+        const catTodos = todos.filter(t => t.category === cat);
+        if (catTodos.length === 0) return;
+
+        const box = document.createElement('div');
+        box.className = 'category-box';
+        box.innerHTML = `
+          <div class="category-box-title">
+            <span>💌 ${escapeHtml(cat)}</span>
+            <span>${catTodos.filter(t=>t.completed).length}/${catTodos.length}</span>
           </div>
-          <div class="item-actions">
-            <button class="btn-icon btn-delete" onclick="deleteTodo(${todo.id})">
-              <i data-lucide="trash-2" style="width:18px; height:18px;"></i>
-            </button>
-          </div>
+          <ul class="item-list" id="cat-ul-${escapeHtml(cat)}"></ul>
         `;
-        listEl.appendChild(li);
-      });
 
-      lucide.createIcons();
+        container.appendChild(box);
+        const ul = box.querySelector(`#cat-ul-${escapeHtml(cat)}`);
+
+        catTodos.forEach(todo => {
+          const li = document.createElement('li');
+          li.className = `item-card ${todo.completed ? 'completed' : ''}`;
+          li.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px; flex:1;" onclick="toggleTodo(${todo.id})">
+              <div class="retro-checkbox">${todo.completed ? '✔' : ''}</div>
+              <div class="item-text">${escapeHtml(todo.title)}</div>
+            </div>
+            <button class="retro-btn" style="font-size:16px; padding:2px 6px; background:#f472b6;" onclick="deleteTodo(${todo.id})">✕</button>
+          `;
+          ul.appendChild(li);
+        });
+      });
+    }
+
+    function renderCategoryFilterBar(categories) {
+      const filterBar = document.getElementById('categoryFilterBar');
+      filterBar.innerHTML = '';
+
+      if (categories.length === 0) return;
+
+      const allBtn = document.createElement('button');
+      allBtn.className = `chip-filter ${selectedFilterCategory === 'ALL' ? 'active' : ''}`;
+      allBtn.innerText = 'Tutti';
+      allBtn.onclick = () => filterCategory('ALL');
+      filterBar.appendChild(allBtn);
+
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = `chip-filter ${selectedFilterCategory === cat ? 'active' : ''}`;
+        btn.innerText = cat;
+        btn.onclick = () => filterCategory(cat);
+        filterBar.appendChild(btn);
+      });
+    }
+
+    function filterCategory(cat) {
+      selectedFilterCategory = cat;
+      renderTodos();
     }
 
     // TIMER
@@ -1056,7 +804,6 @@
       timerTimeLeft = activeHabitForTimer.duration * 60;
       document.getElementById('timerTitle').innerText = activeHabitForTimer.title;
       updateTimerDisplay();
-
       document.getElementById('timerModal').classList.add('active');
     }
 
@@ -1064,38 +811,28 @@
       clearInterval(activeTimerInterval);
       activeTimerInterval = null;
       document.getElementById('timerModal').classList.remove('active');
-      document.getElementById('btnStartTimer').innerHTML = `<i data-lucide="play"></i> Avvia`;
-      lucide.createIcons();
     }
 
     function toggleTimer() {
       const btnStart = document.getElementById('btnStartTimer');
-
       if (activeTimerInterval) {
         clearInterval(activeTimerInterval);
         activeTimerInterval = null;
-        btnStart.innerHTML = `<i data-lucide="play"></i> Riprendi`;
+        btnStart.innerText = 'Riprendi';
       } else {
-        btnStart.innerHTML = `<i data-lucide="pause"></i> Pausa`;
+        btnStart.innerText = 'Pausa';
         activeTimerInterval = setInterval(() => {
           timerTimeLeft--;
           updateTimerDisplay();
-
           if (timerTimeLeft <= 0) {
             clearInterval(activeTimerInterval);
             activeTimerInterval = null;
-            playBeepSound();
-
-            if (activeHabitForTimer) {
-              toggleHabit(activeHabitForTimer.id);
-            }
-
-            alert(`Tempo scaduto! Obiettivo "${activeHabitForTimer.title}" completato! 🎉`);
+            if (activeHabitForTimer) toggleHabit(activeHabitForTimer.id);
+            alert(`Tempo scaduto! 🎉`);
             closeTimerModal();
           }
         }, 1000);
       }
-      lucide.createIcons();
     }
 
     function updateTimerDisplay() {
@@ -1105,148 +842,37 @@
         `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
-    function playBeepSound() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15);
-
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.5);
-      } catch (e) {}
-    }
-
-    // HISTORY
+    // STORICO
     function renderHistory() {
       const historyContainer = document.getElementById('historyList');
       historyContainer.innerHTML = '';
-
       const keys = Object.keys(dailyHistory).sort().reverse();
 
-      let totalFullDays = 0;
-      let streak = 0;
-      let countingStreak = true;
-
-      keys.forEach(dateKey => {
-        const entry = dailyHistory[dateKey];
-        if (entry.total > 0 && entry.completed === entry.total) {
-          totalFullDays++;
-          if (countingStreak) streak++;
-        } else {
-          countingStreak = false;
-        }
-      });
-
-      document.getElementById('statStreak').innerText = streak;
-      document.getElementById('statCompletedDays').innerText = totalFullDays;
-
       if (keys.length === 0) {
-        historyContainer.innerHTML = `
-          <div class="empty-state">
-            <i data-lucide="calendar"></i>
-            <div>Nessuno storico salvato.</div>
-          </div>`;
-        lucide.createIcons();
+        historyContainer.innerHTML = `<div style="text-align:center; color:#a855f7; font-size:14px; font-weight:bold;">Nessun registro presente.</div>`;
         return;
       }
 
       keys.forEach(dateKey => {
         const entry = dailyHistory[dateKey];
-        const formattedDate = formatDateFormatted(dateKey);
-        const ratio = entry.total > 0 ? (entry.completed / entry.total) : 0;
-
-        let badgeClass = 'none';
-        let badgeLabel = 'Non Svolto';
-
-        if (ratio === 1) {
-          badgeClass = 'full';
-          badgeLabel = '100% Completato';
-        } else if (ratio > 0) {
-          badgeClass = 'partial';
-          badgeLabel = `${entry.completed}/${entry.total} Fatti`;
-        }
-
         const div = document.createElement('div');
-        div.className = 'history-item';
-        div.onclick = () => showHistoryDetail(dateKey);
-
+        div.className = 'item-card';
         div.innerHTML = `
           <div>
-            <div class="history-date">${formattedDate}</div>
-            <div class="history-sub">${entry.completed} di ${entry.total} obiettivi completati</div>
+            <div style="font-weight:bold;">${dateKey}</div>
+            <div style="font-size:12px; color:#a855f7;">${entry.completed}/${entry.total} completati</div>
           </div>
-          <span class="status-badge ${badgeClass}">${badgeLabel}</span>
+          <div style="font-family:'VT323'; font-size:22px; color:${entry.completed === entry.total ? '#a855f7' : '#f472b6'};">
+            ${entry.completed === entry.total ? '★ 100%' : '● PARZIALE'}
+          </div>
         `;
-
         historyContainer.appendChild(div);
       });
-
-      lucide.createIcons();
-    }
-
-    function showHistoryDetail(dateKey) {
-      const entry = dailyHistory[dateKey];
-      if (!entry) return;
-
-      document.getElementById('historyModalTitle').innerText = formatDateFormatted(dateKey);
-      document.getElementById('historyModalSubtitle').innerText = `${entry.completed}/${entry.total} Obiettivi completati`;
-
-      const listEl = document.getElementById('historyDetailList');
-      listEl.innerHTML = '';
-
-      if (entry.items && entry.items.length > 0) {
-        entry.items.forEach(item => {
-          const itemDiv = document.createElement('div');
-          itemDiv.className = `detail-item ${item.completed ? 'done' : ''}`;
-          itemDiv.innerHTML = `
-            <span>${escapeHtml(item.title)}</span>
-            <span>${item.completed ? '✓ Fatto' : '✗ Saltato'}</span>
-          `;
-          listEl.appendChild(itemDiv);
-        });
-      } else {
-        listEl.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 10px;">Nessun dettaglio disponibile.</div>`;
-      }
-
-      document.getElementById('historyModal').classList.add('active');
     }
 
     function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
-
-    // PWA Prompt
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const promptEl = document.getElementById('pwaPrompt');
-      if (promptEl) promptEl.style.display = 'flex';
-    });
-
-    document.getElementById('installPwaBtn')?.addEventListener('click', () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-          deferredPrompt = null;
-          document.getElementById('pwaPrompt').style.display = 'none';
-        });
-      }
-    });
   </script>
 </body>
 </html>
