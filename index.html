@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>LOGin</title>
+  <title>LOGin - Routine & Task Planner</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="LOGin">
 
-  <!-- Font Retro Pixel -->
+  <!-- Font Quicksand -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- PWA Manifest -->
+  <!-- PWA Manifest Dynamic Embed -->
   <script>
     const manifestObj = {
       "name": "LOGin",
       "short_name": "LOGin",
       "start_url": ".",
       "display": "standalone",
-      "background_color": "#e9d5ff",
-      "theme_color": "#c084fc",
+      "background_color": "#F9F8FD",
+      "theme_color": "#EAE4F2",
       "icons": [
         {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23e9d5ff'/><text x='50' y='65' font-size='45' text-anchor='middle'>💻</text></svg>",
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23E8DFF5'/><text x='50' y='64' font-size='42' font-family='sans-serif' font-weight='bold' fill='%237B68A6' text-anchor='middle'>L</text></svg>",
           "sizes": "192x192",
           "type": "image/svg+xml"
         }
@@ -43,15 +43,49 @@
 
   <style>
     :root {
-      /* Palette Pixel OS (Lilla & Rosa Pastello) */
-      --os-bg: linear-gradient(180deg, #d8b4fe 0%, #f3e8ff 50%, #fce7f3 100%);
-      --win-bg: #fcf6ff;
-      --win-border: #a855f7;
-      --win-border-light: #d8b4fe;
-      --titlebar-bg: linear-gradient(90deg, #c084fc, #f472b6);
-      --text-dark: #3b0764;
-      --accent-pink: #f472b6;
-      --accent-purple: #a855f7;
+      /* Soft Pastel Palette */
+      --pastel-bg: #F7F8FC;
+      --pastel-card: #FFFFFF;
+      --pastel-pink: #F8E1E7;
+      --pastel-lavender: #E8DFF5;
+      --pastel-mint: #D8E2DC;
+      --pastel-blue: #D6E2E9;
+      --pastel-yellow: #FCF6BD;
+      --pastel-primary: #8E7DBE;
+      --pastel-primary-dark: #705DA3;
+      --pastel-text: #4A4E69;
+      --pastel-muted: #9A9EAB;
+      --pastel-border: #EFF2F7;
+      --pastel-danger-bg: #FFE5E5;
+      --pastel-danger-text: #D9534F;
+      --font-family: 'Quicksand', sans-serif;
+    }
+
+    /* Flame / Streak styling */
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #FFF0E6 0%, #FFE3D1 100%);
+      border: 1.5px solid #FFBD9B;
+      color: #E65100;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(230, 81, 0, 0.1);
+    }
+
+    .streak-flame-svg {
+      width: 20px;
+      height: 20px;
+      filter: drop-shadow(0 2px 4px rgba(255, 107, 0, 0.3));
+      animation: pulseFlame 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulseFlame {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15) rotate(-3deg); }
     }
 
     * {
@@ -59,322 +93,275 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      font-family: var(--font-family);
     }
 
     body {
-      background: var(--os-bg);
-      background-attachment: fixed;
-      color: var(--text-dark);
+      background-color: var(--pastel-bg);
+      color: var(--pastel-text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 80px;
-      font-family: 'Quicksand', sans-serif;
-      position: relative;
-    }
-
-    /* Sfondo Sfumato con Dettagli e Stelline Pixel */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: 
-        radial-gradient(circle, #ffffff 15%, transparent 20%),
-        radial-gradient(circle, #f472b6 10%, transparent 15%);
-      background-size: 50px 50px, 80px 80px;
-      background-position: 0 0, 25px 25px;
-      opacity: 0.35;
-      pointer-events: none;
-      z-index: 0;
+      padding-bottom: 90px;
     }
 
     .status-bar-spacer {
-      height: env(safe-area-inset-top, 20px);
-      background: transparent;
+      height: env(safe-area-inset-top, 12px);
     }
 
-    /* Header OS Style */
+    /* Soft Header */
     header {
-      padding: 12px 20px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(243, 232, 255, 0.9);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid var(--win-border);
-      box-shadow: 0 2px 0 rgba(0,0,0,0.05);
+      z-index: 40;
+      background: rgba(247, 248, 252, 0.9);
+      backdrop-filter: blur(12px);
     }
 
-    .app-title {
-      font-family: 'VT323', monospace;
-      font-size: 32px;
+    .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--text-dark);
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--pastel-primary);
     }
 
     .container {
-      position: relative;
-      z-index: 1;
-      padding: 16px;
-      max-width: 500px;
+      max-width: 520px;
       margin: 0 auto;
       width: 100%;
+      padding: 10px 20px 30px;
     }
 
-    /* Card Retro Window */
-    .retro-window {
-      background: var(--win-bg);
-      border: 2px solid var(--win-border);
-      overflow: hidden;
+    /* Notification Banner */
+    .notif-banner {
+      background: var(--pastel-lavender);
+      border: 1px solid var(--pastel-primary);
+      border-radius: 16px;
+      padding: 14px 16px;
       margin-bottom: 16px;
-      box-shadow: 4px 4px 0px rgba(168, 85, 247, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: fadeIn 0.4s ease;
     }
 
-    .window-titlebar {
-      background: var(--titlebar-bg);
-      padding: 6px 12px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--pastel-card);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 20px rgba(160, 170, 190, 0.08);
+      border: 1px solid var(--pastel-border);
+    }
+
+    .card-title-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
-      font-family: 'VT323', monospace;
-      font-size: 22px;
-      border-bottom: 2px solid var(--win-border);
-    }
-
-    .window-controls {
-      display: flex;
-      gap: 4px;
-    }
-
-    .win-btn {
-      width: 16px;
-      height: 16px;
-      border: 1px solid white;
-      background: rgba(255, 255, 255, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: white;
-      font-weight: bold;
-    }
-
-    .window-body {
-      padding: 16px;
-    }
-
-    .section-title {
-      font-family: 'VT323', monospace;
-      font-size: 26px;
-      color: var(--text-dark);
       margin-bottom: 4px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
-    .section-subtitle {
-      font-size: 12px;
-      color: var(--accent-purple);
-      margin-bottom: 12px;
+    .card-title {
+      font-size: 18px;
       font-weight: 700;
+      color: var(--pastel-text);
     }
 
-    /* Barra del Progresso Pixel */
-    .pixel-progress-bg {
-      height: 18px;
-      background: white;
-      border: 2px solid var(--win-border);
-      padding: 2px;
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--pastel-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Progress Bar */
+    .progress-bar-bg {
+      height: 12px;
+      background: #F0F2F8;
+      border-radius: 20px;
+      overflow: hidden;
       margin-bottom: 8px;
     }
 
-    .pixel-progress-fill {
+    .progress-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, #c084fc, #f472b6);
+      background: linear-gradient(90deg, var(--pastel-mint), var(--pastel-primary));
+      border-radius: 20px;
       width: 0%;
-      transition: width 0.3s ease;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Input & Bottone Pixel */
-    .add-form {
+    .progress-info {
+      text-align: right;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pastel-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Form & Input Elements */
+    .form-group {
       display: flex;
-      flex-direction: column;
       gap: 8px;
-      margin-top: 12px;
-      margin-bottom: 12px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
 
-    .form-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    .retro-input {
+    .input-field, .select-field {
       flex: 1;
-      padding: 8px 12px;
-      border: 2px solid var(--win-border);
-      background: white;
-      font-family: 'Quicksand', sans-serif;
+      padding: 12px 14px;
+      border: 1.5px solid var(--pastel-border);
+      background: #FAFAFC;
+      color: var(--pastel-text);
+      font-size: 14px;
+      border-radius: 14px;
+      outline: none;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .input-field:focus, .select-field:focus {
+      border-color: var(--pastel-primary);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(142, 125, 190, 0.15);
+    }
+
+    .btn {
+      background: var(--pastel-primary);
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 16px;
       font-size: 14px;
       font-weight: 700;
-      outline: none;
-      color: var(--text-dark);
-    }
-
-    .retro-btn {
-      background: var(--accent-purple);
-      color: white;
-      border: 2px solid var(--win-border);
-      padding: 8px 16px;
-      font-family: 'VT323', monospace;
-      font-size: 20px;
+      border-radius: 14px;
       cursor: pointer;
-      box-shadow: 2px 2px 0px var(--win-border);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(142, 125, 190, 0.2);
     }
 
-    .retro-btn:active {
-      transform: translate(2px, 2px);
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-secondary {
+      background: var(--pastel-lavender);
+      color: var(--pastel-primary-dark);
       box-shadow: none;
     }
 
-    /* Liste Elementi */
+    .btn-danger-soft {
+      background: var(--pastel-danger-bg);
+      color: var(--pastel-danger-text);
+      box-shadow: none;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 10px;
+    }
+
+    /* List Items */
     .item-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-
-    .item-card {
-      background: white;
-      border: 2px solid var(--win-border);
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 10px;
     }
 
+    .item-card {
+      background: #FAFAFC;
+      border: 1px solid var(--pastel-border);
+      padding: 12px 14px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
     .item-card.completed {
-      background: #f3e8ff;
-      opacity: 0.75;
+      background: #F4F5F9;
+      opacity: 0.65;
     }
 
-    .item-card.completed .item-text {
+    .item-card.completed .item-title {
       text-decoration: line-through;
-      color: #a855f7;
+      color: var(--pastel-muted);
     }
 
-    .retro-checkbox {
-      width: 22px;
-      height: 22px;
-      border: 2px solid var(--win-border);
-      background: white;
+    .checkbox-soft {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      border: 2px solid #D6DBE5;
+      background: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 12px;
-      color: var(--accent-purple);
+      font-size: 13px;
+      font-weight: bold;
+      color: #FFFFFF;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
     }
 
-    .item-card.completed .retro-checkbox {
-      background: var(--accent-pink);
-      border-color: var(--accent-pink);
-      color: white;
+    .item-card.completed .checkbox-soft {
+      background: var(--pastel-primary);
+      border-color: var(--pastel-primary);
     }
 
-    .item-text {
+    .item-title {
       font-size: 14px;
-      font-weight: 700;
-      color: var(--text-dark);
+      font-weight: 600;
+      color: var(--pastel-text);
     }
 
-    /* Category Filter Pills */
-    .category-filter-bar {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      margin-bottom: 10px;
-    }
-
-    .chip-filter {
-      padding: 4px 12px;
-      background: white;
-      border: 2px solid var(--win-border);
-      font-family: 'VT323', monospace;
-      font-size: 18px;
-      color: var(--text-dark);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .chip-filter.active {
-      background: var(--accent-pink);
-      color: white;
-      border-color: var(--accent-pink);
-    }
-
+    /* Categories Box */
     .category-box {
-      background: rgba(255, 255, 255, 0.75);
-      border: 2px dashed var(--win-border);
-      padding: 10px;
-      margin-bottom: 10px;
+      background: #FAFAFC;
+      border: 1px solid var(--pastel-border);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
     }
 
-    .category-box-title {
-      font-family: 'VT323', monospace;
-      font-size: 22px;
-      color: var(--text-dark);
-      margin-bottom: 6px;
+    .category-header {
       display: flex;
       justify-content: space-between;
-    }
-
-    /* Navigation Tabs Originali */
-    .nav-tabs {
-      display: flex;
-      background: rgba(243, 232, 255, 0.95);
-      backdrop-filter: blur(10px);
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 100;
-      border-top: 2px solid var(--win-border);
-      padding-bottom: env(safe-area-inset-bottom, 10px);
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: 10px 4px 6px 4px;
-      border: none;
-      background: none;
-      color: #c084fc;
-      font-family: 'VT323', monospace;
-      font-size: 20px;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 2px;
-      cursor: pointer;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--pastel-border);
     }
 
-    .tab-btn.active {
-      color: #7e22ce;
-      font-weight: bold;
+    .category-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--pastel-primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
+    /* Tab Navigation */
     .tab-content {
       display: none;
     }
@@ -383,12 +370,51 @@
       display: block;
     }
 
-    /* Modal Timer */
+    .nav-tabs {
+      display: flex;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      position: fixed;
+      bottom: 16px;
+      left: 20px;
+      right: 20px;
+      max-width: 480px;
+      margin: 0 auto;
+      z-index: 100;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(150, 160, 180, 0.15);
+      border: 1px solid var(--pastel-border);
+      padding: 6px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--pastel-muted);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: 8px 0;
+      border-radius: 22px;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn.active {
+      color: var(--pastel-primary-dark);
+      background: var(--pastel-lavender);
+    }
+
+    /* Timer Modal */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
+      background: rgba(74, 78, 105, 0.35);
+      backdrop-filter: blur(6px);
       z-index: 200;
       display: flex;
       align-items: center;
@@ -396,7 +422,7 @@
       padding: 20px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s;
+      transition: opacity 0.3s ease;
     }
 
     .modal-overlay.active {
@@ -405,20 +431,47 @@
     }
 
     .modal-card {
-      background: #fcf6ff;
-      border: 2px solid var(--win-border);
-      padding: 20px;
+      background: #FFFFFF;
+      border-radius: 28px;
+      padding: 28px 22px;
       text-align: center;
       width: 100%;
       max-width: 320px;
-      box-shadow: 6px 6px 0px rgba(168, 85, 247, 0.3);
+      position: relative;
+      z-index: 20;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
 
     .timer-display {
-      font-family: 'VT323', monospace;
-      font-size: 56px;
-      color: var(--text-dark);
+      font-size: 54px;
+      font-weight: 700;
+      color: var(--pastel-primary);
       margin: 12px 0;
+      letter-spacing: 1px;
+    }
+
+    .floating-notes-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 150;
+      overflow: hidden;
+    }
+
+    .note-particle {
+      position: absolute;
+      bottom: -40px;
+      font-size: 28px;
+      user-select: none;
+      animation: floatUp 4s linear infinite;
+      opacity: 0.85;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.9; }
+      80% { opacity: 0.9; }
+      100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
@@ -426,169 +479,343 @@
 
   <div class="status-bar-spacer"></div>
 
-  <!-- Header -->
   <header>
-    <div class="app-title">
-      <i data-lucide="check-square" style="color: var(--accent-purple);"></i>
-      <span>LOGin.exe</span>
+    <div class="brand">
+      <i data-lucide="sparkles"></i>
+      <span>LOGin</span>
     </div>
-    <div style="font-family:'VT323'; font-size: 20px; color: var(--accent-pink);">🌸 PIXEL EDITION</div>
+    <!-- Badge Streak Fiamma -->
+    <div id="streakBadge" class="streak-badge" title="Giorni consecutivi con obiettivi completati">
+      <svg class="streak-flame-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 23C16.4183 23 20 19.4183 20 15C20 11.222 17.382 7.781 14.88 5.12C14.07 4.26 13 3 12 1.5C11 3 9.93 4.26 9.12 5.12C6.618 7.781 4 11.222 4 15C4 19.4183 7.58172 23 12 23Z" fill="url(#flameGradient)"/>
+        <path d="M12 20C14.2091 20 16 18.2091 16 16C16 13.8 14.2 11.5 12 9.5C9.8 11.5 8 13.8 8 16C8 18.2091 9.79086 20 12 20Z" fill="#FFD54F"/>
+        <defs>
+          <linearGradient id="flameGradient" x1="12" y1="1.5" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FF9800"/>
+            <stop offset="1" stop-color="#E65100"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span id="streakCount">0</span> giorni
+    </div>
   </header>
 
   <div class="container">
 
-    <!-- TAB 1: HOME (OBIETTIVI & TO-DO) -->
+    <!-- Notification Alert Banner -->
+    <div id="reminderBanner" style="display: none;" class="notif-banner">
+      <i data-lucide="bell-ring" style="color: var(--pastel-primary-dark); flex-shrink: 0;" size="22"></i>
+      <div style="flex: 1; font-size: 13px; color: var(--pastel-text);">
+        <strong>Promemoria delle 16:00!</strong> Non hai ancora completato alcun obiettivo oggi. Dai il via alla tua routine! ✨
+      </div>
+      <button onclick="dismissReminder()" style="background: none; border: none; font-size: 16px; cursor: pointer; color: var(--pastel-muted);">✕</button>
+    </div>
+
+    <!-- TAB 1: HOME -->
     <section id="tab-home" class="tab-content active">
       
-      <!-- SEZIONE 1: OBIETTIVI GIORNALIERI -->
-      <div class="retro-window">
-        <div class="window-titlebar">
-          <span>🌸 Stream.exe (Obiettivi)</span>
-          <div class="window-controls">
-            <div class="win-btn">_</div>
-            <div class="win-btn">□</div>
-            <div class="win-btn">✕</div>
-          </div>
+      <!-- Obiettivi Giornalieri -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-title">Obiettivi Giornalieri</div>
+          <span style="font-size: 11px; font-weight: 700; color: var(--pastel-primary); background: var(--pastel-pink); padding: 3px 10px; border-radius: 12px;">Reset 00:00</span>
         </div>
-        <div class="window-body">
-          <div class="section-title">
-            <span>Obiettivi Giornalieri</span>
-            <span style="font-size: 14px; background: white; padding: 2px 8px; border: 1px solid var(--win-border);">Reset 00:00</span>
-          </div>
-          <div class="section-subtitle">Abitudini quotidiane che si azzerano a mezzanotte.</div>
+        <div class="card-subtitle">Coltiva le tue abitudini giorno per giorno.</div>
 
-          <div class="pixel-progress-bg">
-            <div id="habitProgressBar" class="pixel-progress-fill"></div>
-          </div>
-          <div style="text-align: right; font-family: 'VT323'; font-size: 18px; margin-bottom: 8px;" id="habitProgressText">0%</div>
-
-          <form id="addHabitForm" class="add-form" style="flex-direction: row;">
-            <input type="text" id="habitInput" class="retro-input" placeholder="Es. 30 min corsa..." required>
-            <input type="number" id="habitTimeInput" class="retro-input" placeholder="Min" style="max-width: 70px;" min="1">
-            <button type="submit" class="retro-btn">+</button>
-          </form>
-
-          <ul id="habitList" class="item-list"></ul>
+        <div class="progress-bar-bg">
+          <div id="habitProgressBar" class="progress-bar-fill"></div>
         </div>
+        <div id="habitProgressText" class="progress-info">0%</div>
+
+        <form id="addHabitForm" class="form-group">
+          <input type="text" id="habitInput" class="input-field" placeholder="Nuovo obiettivo (es. Suonare...)" required>
+          <input type="number" id="habitTimeInput" class="input-field" placeholder="Min" style="max-width: 75px;" min="1">
+          <button type="submit" class="btn">+</button>
+        </form>
+
+        <ul id="habitList" class="item-list"></ul>
       </div>
 
-      <!-- SEZIONE 2: TO-DO LIST CON CATEGORIE -->
-      <div class="retro-window">
-        <div class="window-titlebar" style="background: var(--accent-pink);">
-          <span>💌 JINE.exe (To-Do & Categorie)</span>
-          <div class="window-controls">
-            <div class="win-btn">_</div>
-            <div class="win-btn">□</div>
-            <div class="win-btn">✕</div>
+      <div class="card">
+        <div class="card-title">Liste To-Do</div>
+        <div class="card-subtitle">Suddividi e organizza i tuoi impegni.</div>
+
+        <!-- Nuova Categoria -->
+        <form id="addCategoryForm" class="form-group">
+          <input type="text" id="newCategoryInput" class="input-field" placeholder="Nuova Lista (es. Studio, Casa)..." required>
+          <button type="submit" class="btn btn-secondary" style="font-size: 13px;">+ Lista</button>
+        </form>
+
+        <!-- Aggiunta Task -->
+        <form id="addTodoForm" class="form-group" style="background: #FAFAFC; padding: 12px; border-radius: 16px; flex-direction: column; gap: 8px; border: 1px solid var(--pastel-border);">
+          <div style="font-size: 12px; font-weight: 700; color: var(--pastel-muted);">Aggiungi Compito:</div>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="todoInput" class="input-field" placeholder="Cosa devi fare?" required>
+            <select id="todoCategorySelect" class="select-field" style="max-width: 120px;"></select>
           </div>
-        </div>
-        <div class="window-body">
-          <div class="section-title">Cose da Fare (To-Do)</div>
-          <div class="section-subtitle">Organizzati in sezioni e categorie.</div>
+          <button type="submit" class="btn" style="width: 100%;">Aggiungi</button>
+        </form>
 
-          <div class="category-filter-bar" id="categoryFilterBar"></div>
-
-          <form id="addTodoForm" class="add-form">
-            <input type="text" id="todoInput" class="retro-input" placeholder="Es. Comprare latte..." required>
-            <div class="form-row">
-              <input type="text" id="todoCatInput" class="retro-input" placeholder="Categoria (es. Studio, Casa)..." required>
-              <button type="submit" class="retro-btn">Aggiungi</button>
-            </div>
-          </form>
-
-          <div id="todoCategoriesContainer"></div>
-        </div>
+        <div id="todoContainer" style="margin-top: 14px;"></div>
       </div>
 
     </section>
 
     <!-- TAB 2: STORICO -->
     <section id="tab-history" class="tab-content">
-      <div class="retro-window">
-        <div class="window-titlebar">
-          <span>📊 Followers.exe (Storico)</span>
-          <div class="window-controls"><div class="win-btn">✕</div></div>
-        </div>
-        <div class="window-body">
-          <div class="section-title">Registro Storico</div>
-          <div class="section-subtitle">Controlla i tuoi progressi dei giorni passati.</div>
-          <div id="historyList" class="item-list"></div>
-        </div>
+      <div class="card">
+        <div class="card-title">Registro Storico</div>
+        <div class="card-subtitle">I tuoi traguardi raggiunti in precedenza.</div>
+        <div id="historyList" class="item-list"></div>
       </div>
     </section>
 
     <!-- TAB 3: INFO -->
     <section id="tab-info" class="tab-content">
-      <div class="retro-window">
-        <div class="window-titlebar">
-          <span>💻 Webcam.exe (Info)</span>
-          <div class="window-controls"><div class="win-btn">✕</div></div>
-        </div>
-        <div class="window-body">
-          <div class="section-title">Info LOGin</div>
-          <div style="font-size: 14px; line-height: 1.6; font-weight: 600; margin-top: 8px;">
-            <p>💖 **LOGin PWA**: App in grafica pixel-art lilla/rosa per monitorare abitudini quotidiane e To-Do.</p>
-            <br>
-            <p>📲 **Installazione**: Apri nel browser del tuo smartphone (Safari su iOS o Chrome su Android) e seleziona **"Aggiungi alla schermata Home"**.</p>
-          </div>
+      <div class="card">
+        <div class="card-title">Info & PWA</div>
+        <div style="font-size: 14px; line-height: 1.6; color: var(--pastel-muted); margin-top: 10px;">
+          <p>✨ <strong>LOGin</strong> è pensata per aiutarti a tracciare la tua routine quotidiana con un design morbido e senza stress.</p>
+          <br>
+          <p>🔥 <strong>Streak della Fiamma:</strong> Mieni viva la fiamma completando ogni giorno i tuoi obiettivi quotidiani!</p>
+          <br>
+          <p>🔔 Alle ore 16:00, se non avrai completato alcun obiettivo, riceverai un gentile promemoria per iniziare!</p>
+          <br>
+          <p>📱 Puoi aggiungerla alla schermata Home del tuo telefono per usarla esattamente come un'app nativa.</p>
         </div>
       </div>
     </section>
 
   </div>
 
-  <!-- Bottom Navigation Bar (Struttura Originale) -->
+  <!-- Bottom Navigation -->
   <nav class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('home', this)">
-      <i data-lucide="layout-dashboard"></i> HOME
+    <button id="nav-btn-home" class="tab-btn active" onclick="switchTab('home')">
+      <i data-lucide="heart" size="18"></i> Home
     </button>
-    <button class="tab-btn" onclick="switchTab('history', this)">
-      <i data-lucide="calendar"></i> STORICO
+    <button id="nav-btn-history" class="tab-btn" onclick="switchTab('history')">
+      <i data-lucide="calendar" size="18"></i> Storico
     </button>
-    <button class="tab-btn" onclick="switchTab('info', this)">
-      <i data-lucide="info"></i> INFO
+    <button id="nav-btn-info" class="tab-btn" onclick="switchTab('info')">
+      <i data-lucide="info" size="18"></i> Info
     </button>
   </nav>
 
-  <!-- Timer Modal -->
+  <!-- Timer Modal Overlay -->
   <div id="timerModal" class="modal-overlay">
+    <div id="floatingNotesContainer" class="floating-notes-container"></div>
     <div class="modal-card">
-      <div style="font-family:'VT323'; font-size:28px;" id="timerTitle">Timer Attività</div>
-      <div class="timer-display" id="timerDisplay">00:00</div>
-      <div style="display:flex; justify-content:center; gap:10px;">
-        <button id="btnStartTimer" class="retro-btn">Avvia</button>
-        <button id="btnCloseTimer" class="retro-btn" style="background:#f472b6;">Chiudi</button>
+      <div id="timerTitle" style="font-size: 16px; font-weight: 700; color: var(--pastel-text);">Timer Attività</div>
+      <div id="timerDisplay" class="timer-display">00:00</div>
+      <div style="display: flex; gap: 8px;">
+        <button id="btnStartTimer" class="btn" style="flex: 1;">Avvia</button>
+        <button class="btn btn-danger-soft" style="flex: 1;" onclick="closeTimerModal()">Chiudi</button>
       </div>
     </div>
   </div>
 
   <script>
-    lucide.createIcons();
-
+    // State Variables
     let habits = JSON.parse(localStorage.getItem('login_habits')) || [];
+    let categories = JSON.parse(localStorage.getItem('login_categories')) || ['Generale', 'Studio', 'Casa'];
     let todos = JSON.parse(localStorage.getItem('login_todos')) || [];
     let dailyHistory = JSON.parse(localStorage.getItem('login_history')) || {};
     let lastDate = localStorage.getItem('login_last_date') || getTodayStr();
-    let selectedFilterCategory = 'ALL';
+    let streakCount = parseInt(localStorage.getItem('login_streak')) || 0;
 
     let activeTimerInterval = null;
     let timerTimeLeft = 0;
     let activeHabitForTimer = null;
 
-    document.addEventListener('DOMContentLoaded', () => {
-      checkDailyReset();
-      renderHabits();
-      renderTodos();
-
-      document.getElementById('addHabitForm').addEventListener('submit', handleAddHabit);
-      document.getElementById('addTodoForm').addEventListener('submit', handleAddTodo);
-      document.getElementById('btnStartTimer').addEventListener('click', toggleTimer);
-      document.getElementById('btnCloseTimer').addEventListener('click', closeTimerModal);
-    });
+    const musicKeywords = ['suonare', 'cantare', 'musica', 'chitarra', 'piano', 'pianoforte', 'canto', 'canzone', 'batteria', 'flauto', 'violino', 'sax', 'tromba', 'basso', 'spartito', 'sing', 'play', 'music'];
+    const musicSymbols = ['🎵', '🎶', '🎼', '🎸', '🎹', '🎤', '✨', '🎷'];
 
     function getTodayStr() {
       const d = new Date();
       return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+    }
+
+    // Global Functions for Navigation and Interactions
+    window.switchTab = function(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      const targetTab = document.getElementById(`tab-${tabName}`);
+      const targetNavBtn = document.getElementById(`nav-btn-${tabName}`);
+      
+      if (targetTab) targetTab.classList.add('active');
+      if (targetNavBtn) targetNavBtn.classList.add('active');
+
+      if (tabName === 'history') renderHistory();
+    };
+
+    window.toggleHabit = function(id) {
+      habits = habits.map(h => h.id === id ? { ...h, completed: !h.completed } : h);
+      saveHabits();
+    };
+
+    window.deleteHabit = function(id) {
+      habits = habits.filter(h => h.id !== id);
+      saveHabits();
+    };
+
+    window.toggleTodo = function(id) {
+      todos = todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+      saveTodos();
+    };
+
+    window.deleteTodo = function(id) {
+      todos = todos.filter(t => t.id !== id);
+      saveTodos();
+    };
+
+    window.deleteCategory = function(catName) {
+      categories = categories.filter(c => c !== catName);
+      todos = todos.filter(t => t.category !== catName);
+      saveCategories();
+      saveTodos();
+    };
+
+    window.dismissReminder = function() {
+      document.getElementById('reminderBanner').style.display = 'none';
+      localStorage.setItem('login_reminder_dismissed_' + getTodayStr(), 'true');
+    };
+
+    // Timer Implementation
+    window.openTimerModal = function(habitId) {
+      const habit = habits.find(h => h.id === habitId);
+      if (!habit) return;
+
+      activeHabitForTimer = habit;
+      timerTimeLeft = (habit.duration || 1) * 60;
+
+      document.getElementById('timerTitle').innerText = habit.title;
+      updateTimerDisplay();
+      
+      document.getElementById('timerModal').classList.add('active');
+
+      const isMusic = musicKeywords.some(kw => habit.title.toLowerCase().includes(kw));
+      if (isMusic) {
+        startFloatingNotes();
+      }
+    };
+
+    window.closeTimerModal = function() {
+      if (activeTimerInterval) {
+        clearInterval(activeTimerInterval);
+        activeTimerInterval = null;
+      }
+      document.getElementById('btnStartTimer').innerText = "Avvia";
+      document.getElementById('timerModal').classList.remove('active');
+      stopFloatingNotes();
+    };
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerTimeLeft / 60);
+      const s = timerTimeLeft % 60;
+      document.getElementById('timerDisplay').innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function toggleTimer() {
+      const btn = document.getElementById('btnStartTimer');
+      if (activeTimerInterval) {
+        clearInterval(activeTimerInterval);
+        activeTimerInterval = null;
+        btn.innerText = "Riprendi";
+      } else {
+        btn.innerText = "Pausa";
+        activeTimerInterval = setInterval(() => {
+          if (timerTimeLeft > 0) {
+            timerTimeLeft--;
+            updateTimerDisplay();
+          } else {
+            clearInterval(activeTimerInterval);
+            activeTimerInterval = null;
+            btn.innerText = "Completato!";
+            if (activeHabitForTimer) {
+              toggleHabit(activeHabitForTimer.id);
+            }
+            setTimeout(() => {
+              closeTimerModal();
+            }, 1200);
+          }
+        }, 1000);
+      }
+    }
+
+    function startFloatingNotes() {
+      const container = document.getElementById('floatingNotesContainer');
+      container.innerHTML = '';
+      for (let i = 0; i < 12; i++) {
+        const note = document.createElement('div');
+        note.className = 'note-particle';
+        note.innerText = musicSymbols[Math.floor(Math.random() * musicSymbols.length)];
+        note.style.left = `${Math.random() * 90 + 5}%`;
+        note.style.animationDelay = `${Math.random() * 3}s`;
+        note.style.animationDuration = `${3 + Math.random() * 2}s`;
+        container.appendChild(note);
+      }
+    }
+
+    function stopFloatingNotes() {
+      document.getElementById('floatingNotesContainer').innerHTML = '';
+    }
+
+    // Data Storage & Dynamic Calculation
+    function saveHabits() {
+      localStorage.setItem('login_habits', JSON.stringify(habits));
+      renderHabits();
+      calculateStreak();
+      check1600Notification();
+    }
+
+    function saveCategories() {
+      localStorage.setItem('login_categories', JSON.stringify(categories));
+      renderCategoriesSelect();
+      renderTodoListSections();
+    }
+
+    function saveTodos() {
+      localStorage.setItem('login_todos', JSON.stringify(todos));
+      renderTodoListSections();
+    }
+
+    /* Calcolo Dinamico Streak con la Fiamma */
+    function calculateStreak() {
+      const today = getTodayStr();
+      let currentStreak = 0;
+
+      const todayCompleted = habits.some(h => h.completed);
+
+      let checkDate = new Date();
+      if (!todayCompleted) {
+        // Se oggi non abbiamo ancora completato obiettivi, la streak controlla a ritroso a partire da ieri
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        currentStreak = 1;
+        checkDate.setDate(checkDate.getDate() - 1);
+      }
+
+      while (true) {
+        const dateStr = `${checkDate.getFullYear()}-${String(checkDate.getMonth() + 1).padStart(2, '0')}-${String(checkDate.getDate()).padStart(2, '0')}`;
+        const dayRecord = dailyHistory[dateStr];
+
+        if (dayRecord && dayRecord.completed > 0) {
+          currentStreak++;
+          checkDate.setDate(checkDate.getDate() - 1);
+        } else {
+          break; // La catena si interrompe
+        }
+      }
+
+      streakCount = currentStreak;
+      localStorage.setItem('login_streak', streakCount);
+      const streakEl = document.getElementById('streakCount');
+      if (streakEl) streakEl.innerText = streakCount;
     }
 
     function checkDailyReset() {
@@ -610,59 +837,47 @@
         lastDate = today;
         localStorage.setItem('login_last_date', today);
       }
+      calculateStreak();
     }
 
-    function switchTab(tabName, btnElement) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    // 16:00 Notification Check
+    function check1600Notification() {
+      const now = new Date();
+      const hour = now.getHours();
+      const todayStr = getTodayStr();
+      const dismissed = localStorage.getItem('login_reminder_dismissed_' + todayStr);
 
-      document.getElementById(`tab-${tabName}`).classList.add('active');
-      if (btnElement) btnElement.classList.add('active');
+      if (dismissed === 'true') return;
 
-      if (tabName === 'history') renderHistory();
+      if (hour >= 16) {
+        const completedCount = habits.filter(h => h.completed).length;
+        if (habits.length > 0 && completedCount === 0) {
+          const banner = document.getElementById('reminderBanner');
+          if (banner) banner.style.display = 'flex';
+
+          if (window.Notification && Notification.permission === "granted") {
+            new Notification("LOGin - Promemoria 16:00", {
+              body: "Non hai ancora completato alcun obiettivo oggi. Dai il via alla tua routine!",
+              icon: "https://placehold.co/192x192/E8DFF5/7B68A6?text=L"
+            });
+          }
+        }
+      }
     }
 
-    function saveHabits() {
-      localStorage.setItem('login_habits', JSON.stringify(habits));
-      renderHabits();
+    function requestNotificationPermission() {
+      if (window.Notification && Notification.permission !== "granted" && Notification.permission !== "denied") {
+        Notification.requestPermission();
+      }
     }
 
-    function saveTodos() {
-      localStorage.setItem('login_todos', JSON.stringify(todos));
-      renderTodos();
-    }
-
-    // HABITS
-    function handleAddHabit(e) {
-      e.preventDefault();
-      const input = document.getElementById('habitInput');
-      const timeInput = document.getElementById('habitTimeInput');
-      const title = input.value.trim();
-      const duration = parseInt(timeInput.value) || 0;
-
-      if (!title) return;
-      habits.push({ id: Date.now(), title, duration, completed: false });
-      input.value = '';
-      timeInput.value = '';
-      saveHabits();
-    }
-
-    function toggleHabit(id) {
-      habits = habits.map(h => h.id === id ? { ...h, completed: !h.completed } : h);
-      saveHabits();
-    }
-
-    function deleteHabit(id) {
-      habits = habits.filter(h => h.id !== id);
-      saveHabits();
-    }
-
+    // Render Methods
     function renderHabits() {
       const listEl = document.getElementById('habitList');
       listEl.innerHTML = '';
 
       if (habits.length === 0) {
-        listEl.innerHTML = `<div style="text-align:center; color:#a855f7; font-size:14px; font-weight:bold;">Nessun obiettivo impostato.</div>`;
+        listEl.innerHTML = `<div style="text-align:center; color:var(--pastel-muted); font-size:13px; padding:12px;">Aggiungi un obiettivo quotidiano per iniziare!</div>`;
         updateHabitProgress(0, 0);
         return;
       }
@@ -671,19 +886,21 @@
 
       habits.forEach(habit => {
         if (habit.completed) completedCount++;
+        const isMusic = musicKeywords.some(kw => habit.title.toLowerCase().includes(kw));
+
         const li = document.createElement('li');
         li.className = `item-card ${habit.completed ? 'completed' : ''}`;
         li.innerHTML = `
-          <div style="display:flex; align-items:center; gap:8px; flex:1;" onclick="toggleHabit(${habit.id})">
-            <div class="retro-checkbox">${habit.completed ? '✔' : ''}</div>
+          <div style="display:flex; align-items:center; gap:10px; flex:1; cursor:pointer;" onclick="toggleHabit(${habit.id})">
+            <div class="checkbox-soft">${habit.completed ? '✓' : ''}</div>
             <div>
-              <div class="item-text">${escapeHtml(habit.title)}</div>
-              ${habit.duration > 0 ? `<span style="font-size:12px; color:#a855f7;">⏱ ${habit.duration}m</span>` : ''}
+              <div class="item-title">${escapeHtml(habit.title)} ${isMusic ? '🎶' : ''}</div>
+              ${habit.duration > 0 ? `<span style="font-size:11px; color:var(--pastel-muted); font-weight:600;">⏱ ${habit.duration} min</span>` : ''}
             </div>
           </div>
-          <div style="display:flex; gap:4px;">
-            ${habit.duration > 0 && !habit.completed ? `<button class="retro-btn" style="font-size:16px; padding:2px 6px;" onclick="openTimerModal(${habit.id})">Timer</button>` : ''}
-            <button class="retro-btn" style="font-size:16px; padding:2px 6px; background:#f472b6;" onclick="deleteHabit(${habit.id})">✕</button>
+          <div style="display:flex; gap:6px;">
+            ${habit.duration > 0 && !habit.completed ? `<button class="btn btn-secondary btn-sm" onclick="openTimerModal(${habit.id})">Timer</button>` : ''}
+            <button class="btn btn-danger-soft btn-sm" onclick="deleteHabit(${habit.id})">✕</button>
           </div>
         `;
         listEl.appendChild(li);
@@ -697,182 +914,159 @@
       const progressText = document.getElementById('habitProgressText');
       const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
       progressBar.style.width = `${percent}%`;
-      progressText.innerText = `${percent}% (${completed}/${total} fatti)`;
+      progressText.innerText = `${percent}% (${completed}/${total} completati)`;
     }
 
-    // TO-DO CATEGORIES
-    function handleAddTodo(e) {
-      e.preventDefault();
-      const input = document.getElementById('todoInput');
-      const catInput = document.getElementById('todoCatInput');
-      const title = input.value.trim();
-      const category = catInput.value.trim() || 'Generale';
-
-      if (!title) return;
-      todos.push({ id: Date.now(), title, category, completed: false });
-      input.value = '';
-      saveTodos();
+    function renderCategoriesSelect() {
+      const select = document.getElementById('todoCategorySelect');
+      select.innerHTML = '';
+      categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.innerText = cat;
+        select.appendChild(opt);
+      });
     }
 
-    function toggleTodo(id) {
-      todos = todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
-      saveTodos();
-    }
-
-    function deleteTodo(id) {
-      todos = todos.filter(t => t.id !== id);
-      saveTodos();
-    }
-
-    function renderTodos() {
-      const container = document.getElementById('todoCategoriesContainer');
+    function renderTodoListSections() {
+      const container = document.getElementById('todoContainer');
       container.innerHTML = '';
 
-      const categories = [...new Set(todos.map(t => t.category))];
-      renderCategoryFilterBar(categories);
-
-      if (todos.length === 0) {
-        container.innerHTML = `<div style="text-align:center; color:#a855f7; font-size:14px; font-weight:bold; padding:8px;">Nessuna cosa da fare!</div>`;
+      if (categories.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:var(--pastel-muted); font-size:13px; padding:12px;">Nessuna lista creata.</div>`;
         return;
       }
-
-      const categoriesToDisplay = selectedFilterCategory === 'ALL' ? categories : [selectedFilterCategory];
-
-      categoriesToDisplay.forEach(cat => {
-        const catTodos = todos.filter(t => t.category === cat);
-        if (catTodos.length === 0) return;
-
-        const box = document.createElement('div');
-        box.className = 'category-box';
-        box.innerHTML = `
-          <div class="category-box-title">
-            <span>💌 ${escapeHtml(cat)}</span>
-            <span>${catTodos.filter(t=>t.completed).length}/${catTodos.length}</span>
-          </div>
-          <ul class="item-list" id="cat-ul-${escapeHtml(cat)}"></ul>
-        `;
-
-        container.appendChild(box);
-        const ul = box.querySelector(`#cat-ul-${escapeHtml(cat)}`);
-
-        catTodos.forEach(todo => {
-          const li = document.createElement('li');
-          li.className = `item-card ${todo.completed ? 'completed' : ''}`;
-          li.innerHTML = `
-            <div style="display:flex; align-items:center; gap:8px; flex:1;" onclick="toggleTodo(${todo.id})">
-              <div class="retro-checkbox">${todo.completed ? '✔' : ''}</div>
-              <div class="item-text">${escapeHtml(todo.title)}</div>
-            </div>
-            <button class="retro-btn" style="font-size:16px; padding:2px 6px; background:#f472b6;" onclick="deleteTodo(${todo.id})">✕</button>
-          `;
-          ul.appendChild(li);
-        });
-      });
-    }
-
-    function renderCategoryFilterBar(categories) {
-      const filterBar = document.getElementById('categoryFilterBar');
-      filterBar.innerHTML = '';
-
-      if (categories.length === 0) return;
-
-      const allBtn = document.createElement('button');
-      allBtn.className = `chip-filter ${selectedFilterCategory === 'ALL' ? 'active' : ''}`;
-      allBtn.innerText = 'Tutti';
-      allBtn.onclick = () => filterCategory('ALL');
-      filterBar.appendChild(allBtn);
 
       categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = `chip-filter ${selectedFilterCategory === cat ? 'active' : ''}`;
-        btn.innerText = cat;
-        btn.onclick = () => filterCategory(cat);
-        filterBar.appendChild(btn);
+        const catTodos = todos.filter(t => t.category === cat);
+        const box = document.createElement('div');
+        box.className = 'category-box';
+        
+        const escapedCat = cat.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+        box.innerHTML = `
+          <div class="category-header">
+            <div class="category-name">
+              <span>${escapeHtml(cat)}</span>
+              <span style="font-size:11px; font-weight:600; color:var(--pastel-muted);">(${catTodos.length})</span>
+            </div>
+            <button class="btn btn-danger-soft btn-sm" style="padding: 4px 10px;" onclick="deleteCategory('${escapedCat}')">Elimina Lista</button>
+          </div>
+          <ul class="item-list">
+            ${catTodos.length === 0 ? `<li style="font-size:12px; color:var(--pastel-muted); text-align:center; padding:6px;">Nessun compito in questa lista.</li>` : ''}
+            ${catTodos.map(todo => `
+              <li class="item-card ${todo.completed ? 'completed' : ''}">
+                <div style="display:flex; align-items:center; gap:10px; flex:1; cursor:pointer;" onclick="toggleTodo(${todo.id})">
+                  <div class="checkbox-soft">${todo.completed ? '✓' : ''}</div>
+                  <span class="item-title">${escapeHtml(todo.title)}</span>
+                </div>
+                <button class="btn btn-danger-soft btn-sm" onclick="deleteTodo(${todo.id})">✕</button>
+              </li>
+            `).join('')}
+          </ul>
+        `;
+        container.appendChild(box);
       });
     }
 
-    function filterCategory(cat) {
-      selectedFilterCategory = cat;
-      renderTodos();
-    }
-
-    // TIMER
-    function openTimerModal(habitId) {
-      activeHabitForTimer = habits.find(h => h.id === habitId);
-      if (!activeHabitForTimer) return;
-
-      timerTimeLeft = activeHabitForTimer.duration * 60;
-      document.getElementById('timerTitle').innerText = activeHabitForTimer.title;
-      updateTimerDisplay();
-      document.getElementById('timerModal').classList.add('active');
-    }
-
-    function closeTimerModal() {
-      clearInterval(activeTimerInterval);
-      activeTimerInterval = null;
-      document.getElementById('timerModal').classList.remove('active');
-    }
-
-    function toggleTimer() {
-      const btnStart = document.getElementById('btnStartTimer');
-      if (activeTimerInterval) {
-        clearInterval(activeTimerInterval);
-        activeTimerInterval = null;
-        btnStart.innerText = 'Riprendi';
-      } else {
-        btnStart.innerText = 'Pausa';
-        activeTimerInterval = setInterval(() => {
-          timerTimeLeft--;
-          updateTimerDisplay();
-          if (timerTimeLeft <= 0) {
-            clearInterval(activeTimerInterval);
-            activeTimerInterval = null;
-            if (activeHabitForTimer) toggleHabit(activeHabitForTimer.id);
-            alert(`Tempo scaduto! 🎉`);
-            closeTimerModal();
-          }
-        }, 1000);
-      }
-    }
-
-    function updateTimerDisplay() {
-      const mins = Math.floor(timerTimeLeft / 60);
-      const secs = timerTimeLeft % 60;
-      document.getElementById('timerDisplay').innerText = 
-        `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
-
-    // STORICO
     function renderHistory() {
-      const historyContainer = document.getElementById('historyList');
-      historyContainer.innerHTML = '';
-      const keys = Object.keys(dailyHistory).sort().reverse();
+      const historyList = document.getElementById('historyList');
+      historyList.innerHTML = '';
 
-      if (keys.length === 0) {
-        historyContainer.innerHTML = `<div style="text-align:center; color:#a855f7; font-size:14px; font-weight:bold;">Nessun registro presente.</div>`;
+      const dates = Object.keys(dailyHistory).sort().reverse();
+      if (dates.length === 0) {
+        historyList.innerHTML = `<div style="text-align:center; color:var(--pastel-muted); font-size:13px; padding:12px;">Lo storico verrà aggiornato allo scadere della giornata.</div>`;
         return;
       }
 
-      keys.forEach(dateKey => {
-        const entry = dailyHistory[dateKey];
-        const div = document.createElement('div');
-        div.className = 'item-card';
-        div.innerHTML = `
-          <div>
-            <div style="font-weight:bold;">${dateKey}</div>
-            <div style="font-size:12px; color:#a855f7;">${entry.completed}/${entry.total} completati</div>
+      dates.forEach(dateStr => {
+        const entry = dailyHistory[dateStr];
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.style.flexDirection = 'column';
+        card.style.alignItems = 'stretch';
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; font-weight:700; font-size:14px; margin-bottom:6px;">
+            <span>📅 ${dateStr}</span>
+            <span style="color:var(--pastel-primary);">${entry.completed}/${entry.total} Completati</span>
           </div>
-          <div style="font-family:'VT323'; font-size:22px; color:${entry.completed === entry.total ? '#a855f7' : '#f472b6'};">
-            ${entry.completed === entry.total ? '★ 100%' : '● PARZIALE'}
-          </div>
+          <ul style="list-style:none; padding-left:10px; display:flex; flex-direction:column; gap:4px;">
+            ${entry.items.map(it => `
+              <li style="font-size:12px; color:${it.completed ? 'var(--pastel-text)' : 'var(--pastel-muted)'}; text-decoration:${it.completed ? 'none' : 'line-through'};">
+                ${it.completed ? '✓' : '✗'} ${escapeHtml(it.title)}
+              </li>
+            `).join('')}
+          </ul>
         `;
-        historyContainer.appendChild(div);
+        historyList.appendChild(card);
       });
     }
 
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      checkDailyReset();
+      renderHabits();
+      renderCategoriesSelect();
+      renderTodoListSections();
+      calculateStreak();
+
+      requestNotificationPermission();
+
+      check1600Notification();
+      setInterval(check1600Notification, 60000);
+
+      document.getElementById('addHabitForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('habitInput');
+        const timeInput = document.getElementById('habitTimeInput');
+        const title = input.value.trim();
+        const duration = parseInt(timeInput.value) || 0;
+
+        if (!title) return;
+        habits.push({ id: Date.now(), title, duration, completed: false });
+        input.value = '';
+        timeInput.value = '';
+        saveHabits();
+      });
+
+      document.getElementById('addCategoryForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('newCategoryInput');
+        const catName = input.value.trim();
+
+        if (!catName || categories.includes(catName)) return;
+        categories.push(catName);
+        input.value = '';
+        saveCategories();
+      });
+
+      document.getElementById('addTodoForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('todoInput');
+        const select = document.getElementById('todoCategorySelect');
+        const title = input.value.trim();
+        
+        if (categories.length === 0) {
+          categories.push('Generale');
+          saveCategories();
+        }
+
+        let category = select.value ? select.value.trim() : 'Generale';
+        if (!category || !categories.includes(category)) {
+          category = 'Generale';
+        }
+
+        if (!title) return;
+        todos.push({ id: Date.now(), title, category, completed: false });
+        input.value = '';
+        saveTodos();
+      });
+
+      document.getElementById('btnStartTimer').addEventListener('click', toggleTimer);
+    });
   </script>
 </body>
 </html>
