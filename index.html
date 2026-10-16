@@ -23,8 +23,8 @@
       "short_name": "LOGin",
       "start_url": ".",
       "display": "standalone",
-      "background_color": "#F9F8FD",
-      "theme_color": "#EAE4F2",
+      "background_color": "#F7F8FC",
+      "theme_color": "#8E7DBE",
       "icons": [
         {
           "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23E8DFF5'/><text x='50' y='64' font-size='42' font-family='sans-serif' font-weight='bold' fill='%237B68A6' text-anchor='middle'>L</text></svg>",
@@ -61,33 +61,6 @@
       --font-family: 'Quicksand', sans-serif;
     }
 
-    /* Flame / Streak styling */
-    .streak-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, #FFF0E6 0%, #FFE3D1 100%);
-      border: 1.5px solid #FFBD9B;
-      color: #E65100;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 3px 10px rgba(230, 81, 0, 0.1);
-    }
-
-    .streak-flame-svg {
-      width: 20px;
-      height: 20px;
-      filter: drop-shadow(0 2px 4px rgba(255, 107, 0, 0.3));
-      animation: pulseFlame 1.8s infinite ease-in-out;
-    }
-
-    @keyframes pulseFlame {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15) rotate(-3deg); }
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -103,6 +76,7 @@
       display: flex;
       flex-direction: column;
       padding-bottom: 90px;
+      overflow-x: hidden;
     }
 
     .status-bar-spacer {
@@ -111,31 +85,62 @@
 
     /* Soft Header */
     header {
-      padding: 16px 20px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(247, 248, 252, 0.9);
+      background: rgba(247, 248, 252, 0.95);
       backdrop-filter: blur(12px);
+      gap: 10px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 22px;
+      gap: 8px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--pastel-primary);
+      white-space: nowrap;
+    }
+
+    /* Flame / Streak styling */
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #FFF0E6 0%, #FFE3D1 100%);
+      border: 1.5px solid #FFBD9B;
+      color: #E65100;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(230, 81, 0, 0.1);
+      white-space: nowrap;
+    }
+
+    .streak-flame-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(255, 107, 0, 0.3));
+      animation: pulseFlame 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulseFlame {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15) rotate(-3deg); }
     }
 
     .container {
       max-width: 520px;
       margin: 0 auto;
       width: 100%;
-      padding: 10px 20px 30px;
+      padding: 10px 14px 30px;
     }
 
     /* Notification Banner */
@@ -143,11 +148,11 @@
       background: var(--pastel-lavender);
       border: 1px solid var(--pastel-primary);
       border-radius: 16px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       animation: fadeIn 0.4s ease;
     }
 
@@ -156,14 +161,15 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Cards */
+    /* Cards & Layout */
     .card {
       background: var(--pastel-card);
-      border-radius: 24px;
-      padding: 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 6px 20px rgba(160, 170, 190, 0.08);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(160, 170, 190, 0.08);
       border: 1px solid var(--pastel-border);
+      width: 100%;
     }
 
     .card-title-row {
@@ -171,27 +177,29 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 4px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .card-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--pastel-text);
     }
 
     .card-subtitle {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--pastel-muted);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     /* Progress Bar */
     .progress-bar-bg {
-      height: 12px;
+      height: 10px;
       background: #F0F2F8;
       border-radius: 20px;
       overflow: hidden;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .progress-bar-fill {
@@ -204,28 +212,31 @@
 
     .progress-info {
       text-align: right;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--pastel-muted);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
-    /* Form & Input Elements */
+    /* Form & Mobile Responsive Inputs */
     .form-group {
       display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      gap: 6px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      width: 100%;
+      flex-wrap: wrap;
     }
 
     .input-field, .select-field {
-      flex: 1;
-      padding: 12px 14px;
+      flex: 1 1 120px;
+      min-width: 0;
+      padding: 10px 12px;
       border: 1.5px solid var(--pastel-border);
       background: #FAFAFC;
       color: var(--pastel-text);
-      font-size: 14px;
-      border-radius: 14px;
+      font-size: 13px;
+      border-radius: 12px;
       outline: none;
       transition: all 0.2s ease;
       font-weight: 500;
@@ -241,10 +252,10 @@
       background: var(--pastel-primary);
       color: #FFFFFF;
       border: none;
-      padding: 12px 16px;
-      font-size: 14px;
+      padding: 10px 14px;
+      font-size: 13px;
       font-weight: 700;
-      border-radius: 14px;
+      border-radius: 12px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -252,6 +263,8 @@
       gap: 6px;
       transition: all 0.2s ease;
       box-shadow: 0 4px 12px rgba(142, 125, 190, 0.2);
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .btn:active {
@@ -271,29 +284,32 @@
     }
 
     .btn-sm {
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 11px;
       border-radius: 10px;
     }
 
-    /* List Items */
+    /* Items and Mobile Containers */
     .item-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
+      width: 100%;
     }
 
     .item-card {
       background: #FAFAFC;
       border: 1px solid var(--pastel-border);
-      padding: 12px 14px;
-      border-radius: 16px;
+      padding: 10px 12px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 8px;
       transition: all 0.2s ease;
+      width: 100%;
+      word-break: break-word;
     }
 
     .item-card.completed {
@@ -307,16 +323,16 @@
     }
 
     .checkbox-soft {
-      width: 24px;
-      height: 24px;
-      border-radius: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
       border: 2px solid #D6DBE5;
       background: #FFFFFF;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
       color: #FFFFFF;
       flex-shrink: 0;
@@ -329,36 +345,43 @@
     }
 
     .item-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--pastel-text);
+      line-height: 1.3;
+      word-break: break-word;
     }
 
-    /* Categories Box */
+    /* Category Boxes */
     .category-box {
       background: #FAFAFC;
       border: 1px solid var(--pastel-border);
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 10px;
+      width: 100%;
     }
 
     .category-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       padding-bottom: 6px;
       border-bottom: 1px solid var(--pastel-border);
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .category-name {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--pastel-primary-dark);
       display: flex;
       align-items: center;
       gap: 6px;
+      min-width: 0;
+      word-break: break-word;
     }
 
     /* Tab Navigation */
@@ -375,16 +398,16 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(16px);
       position: fixed;
-      bottom: 16px;
-      left: 20px;
-      right: 20px;
+      bottom: 12px;
+      left: 16px;
+      right: 16px;
       max-width: 480px;
       margin: 0 auto;
       z-index: 100;
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(150, 160, 180, 0.15);
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(150, 160, 180, 0.15);
       border: 1px solid var(--pastel-border);
-      padding: 6px;
+      padding: 4px;
     }
 
     .tab-btn {
@@ -392,15 +415,15 @@
       border: none;
       background: transparent;
       color: var(--pastel-muted);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       cursor: pointer;
-      padding: 8px 0;
-      border-radius: 22px;
+      padding: 6px 0;
+      border-radius: 20px;
       transition: all 0.25s ease;
     }
 
@@ -419,7 +442,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -432,8 +455,8 @@
 
     .modal-card {
       background: #FFFFFF;
-      border-radius: 28px;
-      padding: 28px 22px;
+      border-radius: 24px;
+      padding: 24px 18px;
       text-align: center;
       width: 100%;
       max-width: 320px;
@@ -443,10 +466,10 @@
     }
 
     .timer-display {
-      font-size: 54px;
+      font-size: 48px;
       font-weight: 700;
       color: var(--pastel-primary);
-      margin: 12px 0;
+      margin: 10px 0;
       letter-spacing: 1px;
     }
 
@@ -479,20 +502,22 @@
 
   <div class="status-bar-spacer"></div>
 
+  <!-- Header -->
   <header>
     <div class="brand">
-      <i data-lucide="sparkles"></i>
+      <i data-lucide="check-circle-2" style="color: var(--pastel-primary);"></i>
       <span>LOGin</span>
     </div>
-    <!-- Badge Streak Fiamma -->
-    <div id="streakBadge" class="streak-badge" title="Giorni consecutivi con obiettivi completati">
+    
+    <!-- Flame / Streak Counter Badge -->
+    <div class="streak-badge" title="Giorni consecutivi con obiettivi svolti">
       <svg class="streak-flame-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 23C16.4183 23 20 19.4183 20 15C20 11.222 17.382 7.781 14.88 5.12C14.07 4.26 13 3 12 1.5C11 3 9.93 4.26 9.12 5.12C6.618 7.781 4 11.222 4 15C4 19.4183 7.58172 23 12 23Z" fill="url(#flameGradient)"/>
-        <path d="M12 20C14.2091 20 16 18.2091 16 16C16 13.8 14.2 11.5 12 9.5C9.8 11.5 8 13.8 8 16C8 18.2091 9.79086 20 12 20Z" fill="#FFD54F"/>
+        <path d="M12 22C16.4183 22 20 18.4183 20 14C20 9.58172 16 3 12 2C11 5.5 8 8 8 11C8 8.5 6.5 7 5 8.5C3.5 10 3 12 3 14C3 18.4183 7.58172 22 12 22Z" fill="url(#flameGrad)" />
+        <path d="M12 19C14.2091 19 16 17.2091 16 15C16 12.8 13.5 9 12 8.5C11.5 10 10 11.5 10 13C10 11.5 9 11 8 12C7 13 7 14 7 15C7 17.2091 9.79086 19 12 19Z" fill="#FFD043" />
         <defs>
-          <linearGradient id="flameGradient" x1="12" y1="1.5" x2="12" y2="23" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#FF9800"/>
-            <stop offset="1" stop-color="#E65100"/>
+          <linearGradient id="flameGrad" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FF9800" />
+            <stop offset="1" stop-color="#E65100" />
           </linearGradient>
         </defs>
       </svg>
@@ -502,11 +527,11 @@
 
   <div class="container">
 
-    <!-- Notification Alert Banner -->
-    <div id="reminderBanner" style="display: none;" class="notif-banner">
-      <i data-lucide="bell-ring" style="color: var(--pastel-primary-dark); flex-shrink: 0;" size="22"></i>
-      <div style="flex: 1; font-size: 13px; color: var(--pastel-text);">
-        <strong>Promemoria delle 16:00!</strong> Non hai ancora completato alcun obiettivo oggi. Dai il via alla tua routine! ✨
+    <!-- Banner Promemoria 16:00 -->
+    <div id="reminderBanner" class="notif-banner" style="display: none;">
+      <i data-lucide="bell" style="color: var(--pastel-primary); flex-shrink:0;"></i>
+      <div style="flex: 1; font-size: 12px; font-weight: 600; color: var(--pastel-text);">
+        Ore 16:00! Nessun obiettivo ancora fatto oggi. Dai un'occhiata alla tua lista!
       </div>
       <button onclick="dismissReminder()" style="background: none; border: none; font-size: 16px; cursor: pointer; color: var(--pastel-muted);">✕</button>
     </div>
@@ -527,36 +552,37 @@
         </div>
         <div id="habitProgressText" class="progress-info">0%</div>
 
-        <form id="addHabitForm" class="form-group">
-          <input type="text" id="habitInput" class="input-field" placeholder="Nuovo obiettivo (es. Suonare...)" required>
-          <input type="number" id="habitTimeInput" class="input-field" placeholder="Min" style="max-width: 75px;" min="1">
-          <button type="submit" class="btn">+</button>
+        <form id="addHabitForm" class="form-group" style="display: flex; gap: 6px; align-items: center;">
+          <input type="text" id="habitInput" class="input-field" placeholder="Nuovo obiettivo (es. Suonare...)" required style="flex: 2; min-width: 0;">
+          <input type="number" id="habitTimeInput" class="input-field" placeholder="Min" style="flex: 1; max-width: 65px; min-width: 50px; text-align: center;" min="1">
+          <button type="submit" class="btn" style="padding: 10px 14px;">+</button>
         </form>
 
         <ul id="habitList" class="item-list"></ul>
       </div>
 
+      <!-- Liste To-Do -->
       <div class="card">
         <div class="card-title">Liste To-Do</div>
         <div class="card-subtitle">Suddividi e organizza i tuoi impegni.</div>
 
         <!-- Nuova Categoria -->
-        <form id="addCategoryForm" class="form-group">
-          <input type="text" id="newCategoryInput" class="input-field" placeholder="Nuova Lista (es. Studio, Casa)..." required>
-          <button type="submit" class="btn btn-secondary" style="font-size: 13px;">+ Lista</button>
+        <form id="addCategoryForm" class="form-group" style="display: flex; gap: 6px;">
+          <input type="text" id="newCategoryInput" class="input-field" placeholder="Nuova Lista (es. Studio)..." required style="flex: 1; min-width: 0;">
+          <button type="submit" class="btn btn-secondary" style="font-size: 12px; padding: 10px 12px;">+ Lista</button>
         </form>
 
         <!-- Aggiunta Task -->
-        <form id="addTodoForm" class="form-group" style="background: #FAFAFC; padding: 12px; border-radius: 16px; flex-direction: column; gap: 8px; border: 1px solid var(--pastel-border);">
-          <div style="font-size: 12px; font-weight: 700; color: var(--pastel-muted);">Aggiungi Compito:</div>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" id="todoInput" class="input-field" placeholder="Cosa devi fare?" required>
-            <select id="todoCategorySelect" class="select-field" style="max-width: 120px;"></select>
+        <form id="addTodoForm" class="form-group" style="background: #FAFAFC; padding: 10px; border-radius: 14px; flex-direction: column; gap: 8px; border: 1px solid var(--pastel-border); margin-top: 10px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--pastel-muted);">Aggiungi Compito:</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <input type="text" id="todoInput" class="input-field" placeholder="Cosa devi fare?" required style="flex: 1 1 140px; min-width: 0;">
+            <select id="todoCategorySelect" class="select-field" style="flex: 1 1 100px; min-width: 0;"></select>
           </div>
           <button type="submit" class="btn" style="width: 100%;">Aggiungi</button>
         </form>
 
-        <div id="todoContainer" style="margin-top: 14px;"></div>
+        <div id="todoContainer" style="margin-top: 12px;"></div>
       </div>
 
     </section>
@@ -577,7 +603,7 @@
         <div style="font-size: 14px; line-height: 1.6; color: var(--pastel-muted); margin-top: 10px;">
           <p>✨ <strong>LOGin</strong> è pensata per aiutarti a tracciare la tua routine quotidiana con un design morbido e senza stress.</p>
           <br>
-          <p>🔥 <strong>Streak della Fiamma:</strong> Mieni viva la fiamma completando ogni giorno i tuoi obiettivi quotidiani!</p>
+          <p>🔥 <strong>Streak della Fiamma:</strong> Tieni viva la fiamma completando ogni giorno i tuoi obiettivi quotidiani!</p>
           <br>
           <p>🔔 Alle ore 16:00, se non avrai completato alcun obiettivo, riceverai un gentile promemoria per iniziare!</p>
           <br>
@@ -639,7 +665,7 @@
       return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
     }
 
-    // Global Functions for Navigation and Interactions
+    // Navigation and Tab Switching
     window.switchTab = function(tabName) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -685,7 +711,7 @@
       localStorage.setItem('login_reminder_dismissed_' + getTodayStr(), 'true');
     };
 
-    // Timer Implementation
+    // Timer Logic
     window.openTimerModal = function(habitId) {
       const habit = habits.find(h => h.id === habitId);
       if (!habit) return;
@@ -765,7 +791,7 @@
       document.getElementById('floatingNotesContainer').innerHTML = '';
     }
 
-    // Data Storage & Dynamic Calculation
+    // Storage & Calculations
     function saveHabits() {
       localStorage.setItem('login_habits', JSON.stringify(habits));
       renderHabits();
@@ -786,14 +812,11 @@
 
     /* Calcolo Dinamico Streak con la Fiamma */
     function calculateStreak() {
-      const today = getTodayStr();
       let currentStreak = 0;
-
       const todayCompleted = habits.some(h => h.completed);
 
       let checkDate = new Date();
       if (!todayCompleted) {
-        // Se oggi non abbiamo ancora completato obiettivi, la streak controlla a ritroso a partire da ieri
         checkDate.setDate(checkDate.getDate() - 1);
       } else {
         currentStreak = 1;
@@ -808,7 +831,7 @@
           currentStreak++;
           checkDate.setDate(checkDate.getDate() - 1);
         } else {
-          break; // La catena si interrompe
+          break;
         }
       }
 
@@ -840,7 +863,6 @@
       calculateStreak();
     }
 
-    // 16:00 Notification Check
     function check1600Notification() {
       const now = new Date();
       const hour = now.getHours();
@@ -871,13 +893,13 @@
       }
     }
 
-    // Render Methods
+    // Render Functions
     function renderHabits() {
       const listEl = document.getElementById('habitList');
       listEl.innerHTML = '';
 
       if (habits.length === 0) {
-        listEl.innerHTML = `<div style="text-align:center; color:var(--pastel-muted); font-size:13px; padding:12px;">Aggiungi un obiettivo quotidiano per iniziare!</div>`;
+        listEl.innerHTML = `<div style="text-align:center; color:var(--pastel-muted); font-size:12px; padding:10px;">Aggiungi un obiettivo quotidiano per iniziare!</div>`;
         updateHabitProgress(0, 0);
         return;
       }
@@ -891,14 +913,14 @@
         const li = document.createElement('li');
         li.className = `item-card ${habit.completed ? 'completed' : ''}`;
         li.innerHTML = `
-          <div style="display:flex; align-items:center; gap:10px; flex:1; cursor:pointer;" onclick="toggleHabit(${habit.id})">
+          <div style="display:flex; align-items:center; gap:8px; flex:1; min-width:0; cursor:pointer;" onclick="toggleHabit(${habit.id})">
             <div class="checkbox-soft">${habit.completed ? '✓' : ''}</div>
-            <div>
+            <div style="min-width:0; flex:1;">
               <div class="item-title">${escapeHtml(habit.title)} ${isMusic ? '🎶' : ''}</div>
-              ${habit.duration > 0 ? `<span style="font-size:11px; color:var(--pastel-muted); font-weight:600;">⏱ ${habit.duration} min</span>` : ''}
+              ${habit.duration > 0 ? `<span style="font-size:10px; color:var(--pastel-muted); font-weight:600;">⏱ ${habit.duration} min</span>` : ''}
             </div>
           </div>
-          <div style="display:flex; gap:6px;">
+          <div style="display:flex; gap:4px; flex-shrink:0;">
             ${habit.duration > 0 && !habit.completed ? `<button class="btn btn-secondary btn-sm" onclick="openTimerModal(${habit.id})">Timer</button>` : ''}
             <button class="btn btn-danger-soft btn-sm" onclick="deleteHabit(${habit.id})">✕</button>
           </div>
@@ -1002,6 +1024,7 @@
       });
     }
 
+    // App Initialization
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) {
         lucide.createIcons();
