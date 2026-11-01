@@ -393,6 +393,69 @@
       display: block;
     }
 
+    /* Weekly Timeline Styling */
+    .weekly-tracker {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FAFAFC;
+      border: 1px solid var(--pastel-border);
+      border-radius: 16px;
+      padding: 12px 8px;
+      margin-bottom: 16px;
+      gap: 4px;
+    }
+
+    .week-day-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .week-day-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--pastel-muted);
+      text-transform: uppercase;
+    }
+
+    .week-day-date {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--pastel-text);
+    }
+
+    .week-day-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #EAEFF5;
+      color: var(--pastel-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      transition: all 0.25s ease;
+    }
+
+    .week-day-indicator.done {
+      background: var(--pastel-primary);
+      color: #FFFFFF;
+      box-shadow: 0 3px 8px rgba(142, 125, 190, 0.3);
+    }
+
+    .week-day-indicator.partial {
+      background: var(--pastel-pink);
+      color: var(--pastel-danger-text);
+    }
+
+    .week-day-indicator.today {
+      border: 2px solid var(--pastel-primary);
+    }
+
     .nav-tabs {
       display: flex;
       background: rgba(255, 255, 255, 0.95);
@@ -585,12 +648,35 @@
         <div id="todoContainer" style="margin-top: 12px;"></div>
       </div>
 
+      <!-- Scadenze & Countdown -->
+      <div class="card">
+        <div class="card-title">Date & Countdown</div>
+        <div class="card-subtitle">Monitora quanto manca a scadenze ed eventi importanti.</div>
+
+        <form id="addEventForm" class="form-group" style="background: #FAFAFC; padding: 10px; border-radius: 14px; flex-direction: column; gap: 8px; border: 1px solid var(--pastel-border);">
+          <div style="font-size: 11px; font-weight: 700; color: var(--pastel-muted);">Nuovo Evento / Scadenza:</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <input type="text" id="eventTitleInput" class="input-field" placeholder="Cosa devi fare? (es. Esame)" required style="flex: 1 1 140px; min-width: 0;">
+            <input type="date" id="eventDateInput" class="input-field" required style="flex: 1 1 120px; min-width: 0;">
+          </div>
+          <button type="submit" class="btn btn-secondary" style="width: 100%;">Aggiungi Scadenza</button>
+        </form>
+
+        <ul id="eventList" class="item-list" style="margin-top: 12px;"></ul>
+      </div>
+
     </section>
 
     <!-- TAB 2: STORICO -->
     <section id="tab-history" class="tab-content">
       <div class="card">
-        <div class="card-title">Registro Storico</div>
+        <div class="card-title">Settimana Corrente</div>
+        <div class="card-subtitle">Panoramica visiva degli obiettivi svolti nei 7 giorni.</div>
+        <div id="weeklyTracker" class="weekly-tracker"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Registro Dettagliato</div>
         <div class="card-subtitle">I tuoi traguardi raggiunti in precedenza.</div>
         <div id="historyList" class="item-list"></div>
       </div>
@@ -645,6 +731,7 @@
     let habits = JSON.parse(localStorage.getItem('login_habits')) || [];
     let categories = JSON.parse(localStorage.getItem('login_categories')) || ['Generale', 'Studio', 'Casa'];
     let todos = JSON.parse(localStorage.getItem('login_todos')) || [];
+    let events = JSON.parse(localStorage.getItem('login_events')) || [];
     let dailyHistory = JSON.parse(localStorage.getItem('login_history')) || {};
     let lastDate = localStorage.getItem('login_last_date') || getTodayStr();
     let streakCount = parseInt(localStorage.getItem('login_streak')) || 0;
@@ -704,6 +791,11 @@
       todos = todos.filter(t => t.category !== catName);
       saveCategories();
       saveTodos();
+    };
+
+    window.deleteEvent = function(id) {
+      events = events.filter(e => e.id !== id);
+      saveEvents();
     };
 
     window.dismissReminder = function() {
@@ -808,6 +900,11 @@
     function saveTodos() {
       localStorage.setItem('login_todos', JSON.stringify(todos));
       renderTodoListSections();
+    }
+
+    function saveEvents() {
+      localStorage.setItem('login_events', JSON.stringify(events));
+      renderEvents();
     }
 
     /* Calcolo Dinamico Streak con la Fiamma */
@@ -991,7 +1088,66 @@
       });
     }
 
+    function renderEvents() {
+      const listEl = document.getElementById('eventList');
+      listEl.innerHTML = '';
+
+      if (events.length === 0) {
+        listEl.innerHTML = `<div style="text-align:center; color:var(--pastel-muted); font-size:12px; padding:10px;">Nessuna data o scadenza inserita.</div>`;
+        return;
+      }
+
+      // Ordina per data crescente
+      events.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      events.forEach(evt => {
+        const evtDate = new Date(evt.date + 'T00:00:00');
+        const diffTime = evtDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        let countdownText = '';
+        let badgeColor = 'var(--pastel-lavender)';
+        let textColor = 'var(--pastel-primary-dark)';
+
+        if (diffDays > 0) {
+          countdownText = `Mancano ${diffDays} giorn${diffDays === 1 ? 'o' : 'i'}`;
+        } else if (diffDays === 0) {
+          countdownText = `È OGGI! 🎉`;
+          badgeColor = 'var(--pastel-pink)';
+          textColor = '#D9534F';
+        } else {
+          const pastDays = Math.abs(diffDays);
+          countdownText = `Passato da ${pastDays} giorn${pastDays === 1 ? 'o' : 'i'}`;
+          badgeColor = '#F0F2F8';
+          textColor = 'var(--pastel-muted)';
+        }
+
+        const dateFormatted = evtDate.toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        const li = document.createElement('li');
+        li.className = 'item-card';
+        li.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:2px; flex:1; min-width:0;">
+            <div class="item-title">${escapeHtml(evt.title)}</div>
+            <div style="font-size:11px; color:var(--pastel-muted);">📅 ${dateFormatted}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <span style="font-size:11px; font-weight:700; background:${badgeColor}; color:${textColor}; padding:4px 8px; border-radius:10px;">
+              ${countdownText}
+            </span>
+            <button class="btn btn-danger-soft btn-sm" onclick="deleteEvent(${evt.id})">✕</button>
+          </div>
+        `;
+        listEl.appendChild(li);
+      });
+    }
+
     function renderHistory() {
+      renderWeeklyTracker();
+
       const historyList = document.getElementById('historyList');
       historyList.innerHTML = '';
 
@@ -1024,6 +1180,65 @@
       });
     }
 
+    function renderWeeklyTracker() {
+      const trackerEl = document.getElementById('weeklyTracker');
+      if (!trackerEl) return;
+      trackerEl.innerHTML = '';
+
+      const today = new Date();
+      const todayStr = getTodayStr();
+
+      // Trova il Lunedì della settimana corrente
+      const currentDayOfWeek = today.getDay(); // 0 = Dom, 1 = Lun, ...
+      const distanceToMon = (currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1);
+      
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - distanceToMon);
+
+      const dayNames = ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB', 'DOM'];
+
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        
+        const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        const dayNum = d.getDate();
+
+        let statusClass = '';
+        let iconSymbol = '·';
+
+        if (dateStr === todayStr) {
+          statusClass += ' today';
+          const completedToday = habits.filter(h => h.completed).length;
+          if (completedToday > 0 && completedToday === habits.length) {
+            statusClass += ' done';
+            iconSymbol = '✓';
+          } else if (completedToday > 0) {
+            statusClass += ' partial';
+            iconSymbol = '●';
+          }
+        } else if (dailyHistory[dateStr]) {
+          const record = dailyHistory[dateStr];
+          if (record.completed > 0 && record.completed === record.total) {
+            statusClass += ' done';
+            iconSymbol = '✓';
+          } else if (record.completed > 0) {
+            statusClass += ' partial';
+            iconSymbol = '●';
+          }
+        }
+
+        const col = document.createElement('div');
+        col.className = 'week-day-col';
+        col.innerHTML = `
+          <div class="week-day-label">${dayNames[i]}</div>
+          <div class="week-day-date">${dayNum}</div>
+          <div class="week-day-indicator ${statusClass}">${iconSymbol}</div>
+        `;
+        trackerEl.appendChild(col);
+      }
+    }
+
     // App Initialization
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) {
@@ -1034,12 +1249,26 @@
       renderHabits();
       renderCategoriesSelect();
       renderTodoListSections();
+      renderEvents();
       calculateStreak();
 
       requestNotificationPermission();
 
       check1600Notification();
-      setInterval(check1600Notification, 60000);
+      
+      // Controllo ogni 60 secondi per il reset a mezzanotte e per le notifiche
+      setInterval(() => {
+        checkDailyReset();
+        check1600Notification();
+      }, 60000);
+
+      // Controllo immediato quando l'app viene riaperta o sbloccata sul telefono
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          checkDailyReset();
+          check1600Notification();
+        }
+      });
 
       document.getElementById('addHabitForm').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -1086,6 +1315,20 @@
         todos.push({ id: Date.now(), title, category, completed: false });
         input.value = '';
         saveTodos();
+      });
+
+      document.getElementById('addEventForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const titleInput = document.getElementById('eventTitleInput');
+        const dateInput = document.getElementById('eventDateInput');
+        const title = titleInput.value.trim();
+        const date = dateInput.value;
+
+        if (!title || !date) return;
+        events.push({ id: Date.now(), title, date });
+        titleInput.value = '';
+        dateInput.value = '';
+        saveEvents();
       });
 
       document.getElementById('btnStartTimer').addEventListener('click', toggleTimer);
